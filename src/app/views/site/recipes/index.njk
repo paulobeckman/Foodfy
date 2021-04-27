@@ -1,36 +1,11 @@
-{% extends "../layout.njk" %}
+{% extends '../layout.njk'%}
 
-{% block filter %}
-    <form action="/search" method="GET">
-        <input 
-            type="text"
-            name="filter"
-            placeholder= "Buscar por receitas"
-            value={{filter}}
-        >
-        <button class="filter_search" type="submit">Buscar</button>
-    </form>
+{% block head %}
+    <title>Foodfy | Receitas</title>
 {% endblock %}
 
 {% block content %}
-    <div class="banner">
-        <section>
-            <div class="bannerContainer">
-                <h1>As melhores receitas</h1>
-                <p>Aprenda a construir os melhores pratos com 
-                receitas criadas por profissionais do 
-                mundo inteiro.
-            </div>
-            </p>
-        </section>
-        <section>
-            <img src="assets/chef.png" alt="imagem do chefe">
-        </section>
-    </div>
-
-    <div class="cards_recipes">
-        <h1>Mais acessadas</h1>
-
+    <div class="cards_recipes recipes">
         <div class="cards">
             <div class="card">
                 <img src="images/asinhas.png" alt="imagem receita">
@@ -69,5 +44,4 @@
             </div>
         </div>
     </div>
-
 {% endblock %}

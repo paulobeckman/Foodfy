@@ -35,6 +35,7 @@ textarea, select{
     margin: 0 auto;
 }
 
+/*== HOME ==*/
 header.home{
     padding: 37px 0px;
     display: flex;
@@ -115,6 +116,22 @@ header.home{
 .banner img{
     height: 300px;
     margin-top: auto;
+}
+
+
+/*== ABOUT ==*/
+.about h1{
+    font-size: 24px;
+}
+
+.about p{
+    font-size: 18px;
+    color: #444444;
+    line-height: 28px;
+    text-align: justify;
+    
+    margin-top: 20px;
+    margin-bottom: 30px;
 }
 
 footer{
