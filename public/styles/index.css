@@ -41,6 +41,7 @@ header.home{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    height: 110px;
 }
 
 .links, 
@@ -77,8 +78,6 @@ header.home{
     font-size: 16px;
     font-weight: bold;
     border-radius: 4px;
-    position: absolute;
-    right: 0;    
 }
 
 .banner {

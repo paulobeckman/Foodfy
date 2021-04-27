@@ -1,3 +1,4 @@
+/*== RECIPES ==*/
 .cards_recipes{
     margin: 50px 0;
 }
@@ -36,4 +37,41 @@
     color: #777777;
 
     margin-bottom: 5px;
+}
+
+
+/*== BOSSES ==*/
+.cards_bosses{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.cards_bosses .card_boss{
+    display: grid;
+    grid-template-columns: 65px 1fr;
+    gap: 20px
+}
+
+.cards_bosses .card_boss section {
+    display: grid;
+    align-items: center;
+}
+
+.cards_bosses .card_boss img{
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.cards_bosses .card_boss h1{
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.cards_bosses .card_boss p{
+    font-size: 14px;
+    font-weight: 400;
+    color: #666666;
 }
