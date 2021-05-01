@@ -1,5 +1,5 @@
 module.exports = {
     index(req, res){
-        return res.render("site/bosses/index")
+        return res.render("site/chefs/index")
     }
 }
