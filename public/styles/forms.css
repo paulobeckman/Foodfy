@@ -1,0 +1,143 @@
+.header_page{
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 55px;
+    margin-bottom: 30px;
+    align-items: center;
+}
+
+.header_page h1{
+    font-size: 24px;
+}
+
+.header_page button,
+.admin_button{
+    background: #6558C3;
+    padding: 9px 20px;
+
+    border-radius: 4px;
+    font-size: 16px;
+    color: #FFF;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.item{
+    font-size: 16px;
+    font-weight: 700;
+
+    margin-bottom: 30px;
+}
+
+/*==UPLOAD IMAGE==*/
+.item.photos #photos_upload {
+    position: relative;
+
+    display: block;
+    overflow: hidden;
+    margin-top: 10px;
+
+    width: 139px;
+}
+
+.item.photos #photos_input {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    margin-top: 0;
+}
+
+.item.photos #photos_preview {
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(5, 149px);
+    grid-gap: 8px;
+    right: 0;
+}
+
+.item.photos.recipe .grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.item.photos.recipe #photos_upload {
+    width: 149px;
+    height: 149px;
+}
+
+.item.photos.recipe #photos_upload p{
+    border: 1px solid #DDDDDD;
+    border-radius: 3.5px; 
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 99%;
+    height: 98%;
+}
+
+.item.photos.recipe #photos_upload p span{
+    font-size: 45px;    
+    color: #777777;
+}
+
+.item.photos #photos_input {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.item.photos #photos_preview {
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(5, 149px);
+    grid-gap: 8px;
+    right: 0;
+}
+
+.item.photos #photos_preview img{
+    width: 100%;
+    height: 150px;
+
+    object-fit: cover;
+} 
+
+.admin_button_secondary{
+    font-size: 14px;
+    color: #6558C3;
+    text-align: right;
+    font-weight: 700;
+    background: none;
+    margin-bottom: 30px;
+}
+
+.item.change{
+    margin-bottom: 15px;
+}
+
+.item textarea {
+    height: 257px;
+    resize: none
+}
+
+
+
+
+
+

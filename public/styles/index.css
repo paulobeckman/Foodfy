@@ -22,9 +22,10 @@ body {
 input,
 textarea, select{
     border: 1px solid #DDDDDD;
+    width: 100%;
     padding: 10px;
-    min-width: 250px;
     border-radius: 4px;
+    max-width: 918px;
     margin-top: 10px;
     outline: none;
 }
