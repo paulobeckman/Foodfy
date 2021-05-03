@@ -17,7 +17,7 @@
             type="file"
             name="photos"
             accept="image/*"
-            onchange="PhotosUpload.handleFileInput(event)"
+            onchange="PhotosChefUpload.handleFileInput(event)"
         >
 
         <p class="admin_button">Enviar Avatar</p>
@@ -25,14 +25,14 @@
 
     <div id="photos_preview">
         {% if files %}
-            {% for image in files %}
+            {% for image in files %}   
                 <div class="photo" id="{{image.id}}">
                     <img src="{{image.src}}" alt="{{image.name}}">
-                    <i class="material_icons"
-                        onclick="PhotosUpload.removeOldPhoto(event)"
+                    <i class="material-icons"
+                        onclick="PhotosChefUpload.removeOldPhoto(event)"
                     >close</i>
                 </div>
-            {% endfor %}
+            {% endfor%}
             <input type="hidden" name="removed_files">
         {% endif %}
     </div>
