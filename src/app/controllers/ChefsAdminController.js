@@ -2,8 +2,14 @@ const Chef = require('../models/Chef')
 const File = require('../models/File')
 
 module.exports = {
-    index(req, res){
-        return res.render("admin/chefs/index")
+    async index(req, res){
+        let results = await Chef.all()
+        const chefs = results.rows.map(chef => ({
+            ...chef,
+            src: `${req.protocol}://${req.headers.host}${chef.path.replace("public", "")}`
+        }))
+
+        return res.render("admin/chefs/index", {chefs})
     },
     create(req, res){
         return res.render("admin/chefs/create")
@@ -21,13 +27,25 @@ module.exports = {
             return res.send('Please, send at least one image')        
 
         }
+
+        let results = await File.create(req.files[0])
+        const file_id = results.rows[0].id
         
-        let results = await Chef.create(req.body)
+        results = await Chef.create({...req.body, file_id})
         const chefId = results.rows[0].id
 
-        const filesPromise = req.files.map(file => File.create({...file}))
-        await Promise.all(filesPromise)
 
         return res.redirect(`chefs/${chefId}/edit`)
+    },
+    async show(req, res){
+        let results = await Chef.find(req.params.id)
+        const chef = results.rows[0]
+        
+        ChefAddingSrc = {
+            ...chef,
+            src: `${req.protocol}://${req.headers.host}${chef.path.replace("public", "")}`
+        }
+
+        return res.render("admin/chefs/show", {chef: ChefAddingSrc})
     }
 }

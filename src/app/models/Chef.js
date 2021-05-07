@@ -2,26 +2,31 @@ const db = require('../../config/db')
 const { date } = require('../../lib/utils')
 
 module.exports = {
-    // all(callback) {
-    //     db.query(`
-    //         SELECT * FROM chefs 
-    //         ORDER BY name ASC`, function (err, results) {
-    //             if(err) throw `Database error ${err}`
+    all() {
+        try {
+            return db.query(`SELECT chefs.*, files.path
+                FROM chefs
+                LEFT JOIN files ON (files.id = chefs.file_id)
+                ORDER BY name ASC`
+            )
 
-    //             callback(results.rows)
-    //         })
-    // },
-    create(data, callback) {
+        } catch (error) {
+            console.error(error)
+        }
+    },
+    create(data) {
         try{
             const query = `
                 INSERT INTO chefs( 
                     name,
+                    file_id,
                     created_at
-                ) VALUES ($1, $2)
+                ) VALUES ($1, $2, $3)
                 RETURNING id
             `
             const values = [
                 data.name,
+                data.file_id,
                 date(Date.now()).iso
             ]
 
@@ -32,19 +37,20 @@ module.exports = {
         }
 
     },
-    // find(id, callback) {
-    //     db.query (`
-    //     SELECT chefs.*, count(recipes) AS total_recipes
-    //     FROM chefs
-    //     LEFT JOIN recipes ON (recipes.chef_id = chefs.id)
-    //     WHERE chefs.id = $1
-    //     GROUP BY chefs.id`, [id], function (err, results) {
-    //             if(err) throw `Database error ${err}`
-
-    //             callback(results.rows[0])
-    //         }
-    //     )
-    // },
+    find(id) {
+        try {
+            return db.query (`
+                SELECT chefs.*, count(recipes) AS total_recipes, files.path
+                FROM chefs
+                INNER JOIN files ON files.id = chefs.file_id
+                LEFT JOIN recipes ON chefs.id = recipes.chef_id
+                WHERE chefs.id = $1
+                GROUP BY chefs.id, files.path`, [id]
+            )  
+        } catch (error) {
+            console.error(error)
+        }
+    },
     // findRecipesChef(id, callback) {
     //     db.query (`
     //     SELECT chefs.*, recipes.title AS recipes_title, recipes.image AS recipes_image

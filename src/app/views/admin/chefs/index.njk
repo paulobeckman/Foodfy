@@ -10,85 +10,16 @@
     </div>
 
     <div class="cards_chefs admin">
-
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <a href="*">Visualizar</a>
-            </section>
-        </div>
-
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <a href="*">Visualizar</a>
-            </section>
-        </div>
-
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <a href="*">Visualizar</a>
-            </section>
-        </div>
-
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <a href="*">Visualizar</a>
-            </section>
-        </div>
-
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <a href="*">Visualizar</a>
-            </section>
-        </div>
-
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <a href="*">Visualizar</a>
-            </section>
-        </div>
-
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <a href="*">Visualizar</a>
-            </section>
-        </div>
-
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <a href="*">Visualizar</a>
-            </section>
-        </div>
+        {% for chef in chefs %}
+            <div class="card_chef">
+                <section>
+                    <img src="{{chef.src}}" alt="{{chef.name}}">
+                </section>
+                <section>
+                    <h1>{{chef.name}}</h1>
+                    <a href="chefs/{{chef.id}}">Visualizar</a>
+                </section>
+            </div>  
+        {% endfor %}
     </div>
 {% endblock %}

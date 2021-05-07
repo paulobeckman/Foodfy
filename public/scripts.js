@@ -65,12 +65,40 @@ const PhotosChefUpload = {
         const div = document.createElement('div')
         div.classList.add('photo')
 
-        // div.onclick = PhotosChefUpload.removePhoto
+        div.onclick = PhotosChefUpload.removePhoto
 
         div.appendChild(image)
 
-        // div.appendChild(PhotosChefUpload.getRemoveButton())
+        div.appendChild(PhotosChefUpload.getRemoveButton())
 
         return div
     },
+    getRemoveButton() {
+        const button = document.createElement('i')
+        button.classList.add('material-icons')
+        button.innerHTML = "close"
+        return button
+    },
+    removePhoto(event) {
+        const photoDiv = event.target.parentNode //<div class="photo">
+        const photosArray = Array.from(PhotosChefUpload.preview.children)
+        const index = photosArray.indexOf(photoDiv)
+
+        PhotosChefUpload.files.splice(index, 1)
+        PhotosChefUpload.input.files = PhotosChefUpload.getAllFiles()
+
+        photoDiv.remove()
+    },
+    removeOldPhoto(event){
+        const photoDiv = event.target.parentNode
+
+        if(photoDiv.id) {
+            const removedFiles = document.querySelector('input[name="removed_files"')
+            if(removedFiles){
+                removedFiles.value += `${photoDiv.id},`
+            }
+        }
+
+        photoDiv.remove()
+    }
 }

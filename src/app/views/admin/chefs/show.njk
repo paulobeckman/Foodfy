@@ -1,12 +1,24 @@
 {% extends '../layout.njk'%}
 
 {% block head %}
-    <title>Foodfy | Administrador</title>
+    <title>Foodfy | Chef | Administrador</title>
 {% endblock %}
 
 {% block content %}
+    <div class="header_page">
+        <h1>Chef: {{chef.name}}</h1>
+
+        <a href="*" class="admin_button">Editar chef</a>
+    </div>
+
+    <div class="chef_information">
+        <img src="{{chef.src}}" alt="{{chef.name}}">
+        <h2>{{chef.name}}</h2>
+        <p>{{chef.total_recipes}} receitas</p>
+    </div>
+
     <div class="cards_recipes admin">
-        <h1>Gerenciar receitas</h1>
+        <h1>Receitas</h1>
 
         <div class="cards">
             <div class="card">
@@ -76,5 +88,5 @@
             </div>
         </div>
     </div>
+    
 {% endblock %}
-

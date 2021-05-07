@@ -33,7 +33,6 @@
 /*==UPLOAD IMAGE==*/
 .item.photos #photos_upload {
     position: relative;
-
     display: block;
     overflow: hidden;
     margin-top: 10px;
@@ -49,15 +48,10 @@
     display: block;
     overflow: hidden;
     width: 100%;
-    height: 100%;
     opacity: 0;
     cursor: pointer;
-    margin-top: 0;
-}
 
-.item.photos #photos_preview {
-    position: absolute;
-    left: 10;
+    margin-top: 0;
 }
 
 .item.photos #photos_preview img{
@@ -65,10 +59,12 @@
     height: 150px;
 
     object-fit: cover;
+    border-radius: 50%;
 } 
 
-.item.photos #photos_preview .photo {
-    position: relative;
+#photos_preview .photo {
+    position: absolute;
+    margin-top: 15px;
 }
 
 .item.photos.recipe .grid{
@@ -111,24 +107,6 @@
     cursor: pointer;
 }
 
-.admin_button_secondary{
-    font-size: 14px;
-    color: #6558C3;
-    text-align: right;
-    font-weight: 700;
-    background: none;
-    margin-bottom: 30px;
-}
-
-.item.change{
-    margin-bottom: 15px;
-}
-
-.item textarea {
-    height: 257px;
-    resize: none
-}
-
 #photos_preview .photo i {
     position: absolute;
     top: 0;
@@ -155,6 +133,24 @@
 
 #photos_preview .photo:hover i {
     opacity: 1;
+}
+
+.admin_button_secondary{
+    font-size: 14px;
+    color: #6558C3;
+    text-align: right;
+    font-weight: 700;
+    background: none;
+    margin-bottom: 30px;
+}
+
+.item.change{
+    margin-bottom: 15px;
+}
+
+.item textarea {
+    height: 257px;
+    resize: none
 }
 
 
