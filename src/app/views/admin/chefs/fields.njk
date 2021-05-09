@@ -24,16 +24,16 @@
     </div>
 
     <div id="photos_preview">
-        {% if chef.files %}
-            {% for image in files %}   
+        {% if files %}
+            {% for image in files%}
                 <div class="photo" id="{{image.id}}">
                     <img src="{{image.src}}" alt="{{image.name}}">
                     <i class="material-icons"
                         onclick="PhotosChefUpload.removeOldPhoto(event)"
                     >close</i>
                 </div>
-            {% endfor%}
-            <input type="hidden" name="removed_files">
+                <input type="hidden" name="removed_files">
+            {%endfor%}
         {% endif %}
     </div>
 </div>

@@ -2,17 +2,18 @@ const db = require('../../config/db')
 const { date } = require('../../lib/utils')
 
 module.exports = {
-    // all(callback) {
-    //     db.query(`
-    //         SELECT recipes.*, chefs.name AS chef_name 
-    //         FROM recipes 
-    //         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-    //         ORDER BY title ASC`, function (err, results) {
-    //             if(err) throw `Database error ${err}`
-
-    //             callback(results.rows)
-    //         })
-    // },
+    all() {
+        try{
+            return db.query(`
+                SELECT recipes.*, chefs.name AS chef_name 
+                FROM recipes 
+                LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+                ORDER BY title ASC`
+            )
+        } catch(error){
+            console.error(error)
+        }
+    },
     create(data) {
         const query = `
             INSERT INTO recipes(
@@ -38,13 +39,25 @@ module.exports = {
         return db.query(query, values)
 
     },
-    // find(id) {
-    //     return db.query (`
-    //         SELECT recipes.*, chefs.name AS chef_name 
-    //         FROM recipes 
-    //         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-    //         WHERE recipes.id = $1`, [id])
-    // },
+    find(id) {
+        try{
+            return db.query (`
+                SELECT recipes.*, chefs.name AS chef_name 
+                FROM recipes 
+                LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+                WHERE recipes.id = $1`, [id]
+            )
+        }catch(error){
+            console.error(error)
+        }
+    },
+    findByChefs(id){
+        return db.query(`
+            SELECT recipes.title, recipes.id
+            FROM recipes 
+            WHERE recipes.chef_id = $1`, [id]
+        )
+    }
     // update(data) {
     //     const query = (`
     //         UPDATE recipes SET

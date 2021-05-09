@@ -10,6 +10,6 @@ routes.get('/about', function(req, res){
     return res.render("site/about/index")
 })
 routes.get('/recipes', Recipes.index)
-routes.get('/bosses', Chefs.index)
+routes.get('/chefs', Chefs.index)
 
 module.exports = routes

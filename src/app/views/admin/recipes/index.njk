@@ -9,71 +9,18 @@
         <h1>Gerenciar receitas</h1>
 
         <div class="cards">
-            <div class="card">
-                <section>
-                    <img src="/images/asinhas.png" alt="imagem chef">
-                </section>
-                <section>
-                    <h2>Asinhas de frango ao barbecue</h2>
-                    <p>por Jorge Relato</p>
-                    <a href="*">Visualizar</a>
-                </section>
-            </div>
-
-            <div class="card">
-                <section>
-                    <img src="/images/asinhas.png" alt="imagem chef">
-                </section>
-                <section>
-                    <h2>Triplo bacon burger</h2>
-                    <p>por Jorge Relato</p>
-                    <a href="*">Visualizar</a>
-                </section>
-            </div>
-
-            <div class="card">
-                <section>
-                    <img src="/images/asinhas.png" alt="imagem chef">
-                </section>
-                <section>
-                    <h2>Triplo bacon burger</h2>
-                    <p>por Jorge Relato</p>
-                    <a href="*">Visualizar</a>
-                </section>
-            </div>
-
-            <div class="card">
-                <section>
-                    <img src="/images/asinhas.png" alt="imagem chef">
-                </section>
-                <section>
-                    <h2>Triplo bacon burger</h2>
-                    <p>por Jorge Relato</p>
-                    <a href="*">Visualizar</a>
-                </section>
-            </div>
-
-            <div class="card">
-                <section>
-                    <img src="/images/asinhas.png" alt="imagem chef">
-                </section>
-                <section>
-                    <h2>Triplo bacon burger</h2>
-                    <p>por Jorge Relato</p>
-                    <a href="*">Visualizar</a>
-                </section>
-            </div>
-
-            <div class="card">
-                <section>
-                    <img src="/images/asinhas.png" alt="imagem chef">
-                </section>
-                <section>
-                    <h2>Triplo bacon burger</h2>
-                    <p>por Jorge Relato</p>
-                    <a href="*">Visualizar</a>
-                </section>
-            </div>
+            {%for recipe in recipes%}
+                <div class="card">
+                    <section>
+                        <img src="/images/asinhas.png" alt="imagem chef">
+                    </section>
+                    <section>
+                        <h2>{{recipe.title}}</h2>
+                        <p>por {{recipe.chef_name}}</p>
+                        <a href="recipes/{{recipe.id}}">Visualizar</a>
+                    </section>
+                </div>
+            {%endfor%}
         </div>
     </div>
 {% endblock %}

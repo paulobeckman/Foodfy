@@ -1,9 +1,20 @@
 const Chef = require('../models/Chef')
 const Recipe = require('../models/Recipes')
+const File = require('../models/File')
+const Recipe_File = require('../models/Recipe_Files')
 
 module.exports = {
-    index(req, res){
-        return res.render("admin/recipes/index")
+    async index(req, res){
+        let results = await Recipe.all()
+        const recipes = results.rows
+
+        // results = await Recipe_File.find()
+        // const files = results.rows.map(file =>({
+        //     ...file,
+        //     src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+        // }))
+
+        return res.render("admin/recipes/index", {recipes})
     },
     async create(req, res){
         let results = await Chef.all()
@@ -39,5 +50,23 @@ module.exports = {
         await Promise.all(filesPromiseResults)
 
         return res.redirect(`recipes/${recipeId}`)
+    },
+    async show(req, res){
+        let results = await Recipe.find(req.params.id)
+        const recipe = results.rows[0]
+
+        results = await Recipe_File.find(req.params.id)
+        let files = await results.rows
+        files = files.map(file => ({
+            ...file,
+            src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+        }))
+
+        const RecipeFiles = {
+            ...recipe,
+            files
+        }
+
+        return res.render("admin/recipes/show", {recipe: RecipeFiles})
     },
 }

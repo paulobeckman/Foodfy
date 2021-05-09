@@ -51,6 +51,37 @@ module.exports = {
             console.error(error)
         }
     },
+    update(data){
+        try {
+            const query = `
+                UPDATE chefs SET
+                    name = ($1)
+                    file_id = ($2) 
+                WHERE id = $3
+            ` 
+
+            const values = [
+                data.name,
+                data.file_id,
+                data.id
+            ]
+
+            return db.query(query, values)
+            
+        } catch (error) {
+            console.error(error)
+        }
+
+    },
+    files(id){
+        return db.query(`
+            SELECT * 
+            FROM files 
+            WHERE id = (SELECT chefs.file_id
+                FROM chefs
+                WHERE chefs.id = $1)`, [id]
+        ) 
+    },
     // findRecipesChef(id, callback) {
     //     db.query (`
     //     SELECT chefs.*, recipes.title AS recipes_title, recipes.image AS recipes_image
@@ -62,26 +93,6 @@ module.exports = {
     //             callback(results.rows)
     //         }
     //     )
-    // },
-    // update(data, callback){
-    //     const query = `
-    //         UPDATE chefs SET
-    //             name = ($1),
-    //             avatar_url = ($2)
-    //         WHERE id = $3
-    //     ` 
-
-    //     const values = [
-    //         data.name,
-    //         data.avatar_url,
-    //         data.id
-    //     ]
-
-    //     db.query(query, values, function (err, results) {
-    //         if(err) throw `Database error ${err}`
-
-    //         callback()
-    //     })
     // },
     // delete(id, callback) {
     //     db.query(`

@@ -107,6 +107,21 @@
     cursor: pointer;
 }
 
+.item.photos.recipe #photos_preview{
+    display: grid;
+    grid-template-columns: repeat(5, 149px);
+    grid-gap: 8px;
+    right: 0;
+}
+
+.item.photos.recipe #photos_preview .photo{
+    position: relative
+}
+
+.item.photos.recipe #photos_preview .photo img{
+    border-radius: 0;
+}
+
 #photos_preview .photo i {
     position: absolute;
     top: 0;
@@ -116,7 +131,7 @@
 
     color: red;
 
-    width: 100%;
+    width: 101%;
     height: 100%;
 
     display: flex;
@@ -142,6 +157,7 @@
     font-weight: 700;
     background: none;
     margin-bottom: 30px;
+    cursor: pointer;
 }
 
 .item.change{
@@ -150,11 +166,16 @@
 
 .item textarea {
     height: 257px;
-    resize: none
+    resize: none;
 }
 
+/*==DELETE==*/
+#delete_form{
+    display: flex;
+    right: 0;
+}
 
-
-
-
-
+#delete_form button{
+    background: #DC4747;
+    right: 0;
+}

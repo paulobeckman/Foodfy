@@ -18,7 +18,12 @@ module.exports = {
         return db.query(query, values)
     },
     find(id){
-        return db.query(`SELECT * FROM recipe_files WHERE recipe_id = $1`, [id])
+        return db.query(`
+            SELECT recipe_files.recipe_id, files.path
+            FROM recipe_files 
+            LEFT JOIN files ON (files.id = recipe_files.file_id)
+            WHERE recipe_id= $1`, [id]
+        )
     },
     deleteByFile(id){
         return db.query(`DELETE FROM recipe_files WHERE file_id = $1`, [id])
