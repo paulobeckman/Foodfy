@@ -223,9 +223,8 @@ header.home.admin{
 }
 
 .page_information.recipe .gallery_preview {
-    display: grid;
-    grid-template-columns: repeat(6, 50px);
-    grid-gap: 10px;
+    display: flex;
+    gap: 10px;
     justify-content: flex-end;
 
     height: 50px;

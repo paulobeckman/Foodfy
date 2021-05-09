@@ -68,37 +68,36 @@ module.exports = {
         return res.render("admin/chefs/edit", {chef, files})
     },
     async update(req, res){
-        const keys = Object.keys(req.body)
-    
-        for(key of keys) {
-            if (req.body[key] == ""){
-                return res.send('Please, fill all fields!')
-            }
-        }
-
-        // if(req.files.length != 0){
-        //     const newFilesPromise = req.files.map(file =>
-        //         results = File.create({...file})
-        //     )
-
-        //     await Promise.all(newFilesPromise)
-        // }
-
-        let results = await File.create(req.files[0])
-        const file_id = results.rows[0].id
+        try {
+            const keys = Object.keys(req.body)
         
-        await Chef.update({...req.body, file_id})
+            for(key of keys) {
+                if (req.body[key] == ""){
+                    return res.send('Please, fill all fields!')
+                }
+            }
 
-        if (req.body.removed_files){
-            const removedFiles = req.body.removed_files.split(",")
-            const lastIndex = removedFiles.length - 1
-            removedFiles.splice(lastIndex, 1)
+            if(req.files.length != 0){
+                let results = await File.create(req.files[0])
+                const file_id = results.rows[0].id
 
-            const removedFilesPromise = removedFiles.map(id => File.delete(id))
+                await Chef.update({...req.body, file_id})
+            }
+                    
+            if (req.body.removed_files){
+                const removedFiles = req.body.removed_files.split(",")
+                const lastIndex = removedFiles.length - 1
+                removedFiles.splice(lastIndex, 1)
+                
+                const removedFilesPromise = removedFiles.map(id => File.delete(id))
+                
+                await Promise.all(removedFilesPromise)
+            }
 
-            await Promise.all(removedFilesPromise)
+            return res.redirect(`chefs/${req.body.id}`)
+
+        } catch (error) {
+            
         }
-
-        return res.redirect(`admin/chefs/${req.body.id}`)
     }
 }
