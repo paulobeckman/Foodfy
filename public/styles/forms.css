@@ -23,6 +23,18 @@
     cursor: pointer;
 }
 
+.header_page button.admin_button{
+    background: #DC4747;
+    color: #FFF;
+    right: 0;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+
+    padding: 9px 20px;
+    margin-right: 10px;
+}
+
 .item{
     font-size: 16px;
     font-weight: 700;
@@ -70,11 +82,14 @@
 .item.photos.recipe .grid{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    align-items: center;
 }
 
 .item.photos.recipe #photos_upload {
-    width: 149px;
-    height: 149px;
+    width: 153px;
+    height: 153px;
+
+    margin-right: 10px;
 }
 
 .item.photos.recipe #photos_upload p{
@@ -170,12 +185,3 @@
 }
 
 /*==DELETE==*/
-#delete_form{
-    display: flex;
-    right: 0;
-}
-
-#delete_form button{
-    background: #DC4747;
-    right: 0;
-}

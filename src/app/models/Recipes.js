@@ -80,17 +80,17 @@ module.exports = {
 
         return db.query(query, values)
     },
-    // delete(id) {
-    //     try{
-    //         return db.query(`
-    //             DELETE FROM recipes
-    //             WHERE id = $1`, [id]
-    //         )
+    delete(id) {
+        try{
+            return db.query(`
+                DELETE FROM recipes
+                WHERE id = $1`, [id]
+            )
 
-    //     } catch(err){
-    //         console.error(err)
-    //     }
-    // },
+        } catch(err){
+            console.error(err)
+        }
+    },
     // findBy(filter, callback){
     //     db.query(`
     //         SELECT recipes.*, chefs.name AS chef_name

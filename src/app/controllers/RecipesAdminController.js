@@ -124,5 +124,17 @@ module.exports = {
         } catch (error) {
             console.error(error)
         }
+    },
+    async delete(req, res){
+        const resultsFileId = await Recipe_File.find(req.body.id)
+
+        await Recipe_File.deleteByRecipe(req.body.id)
+        
+        const removedFilesPromise = await resultsFileId.rows.map(file => File.delete(file.id))
+        await Promise.all(removedFilesPromise)
+
+        await Recipe.delete(req.body.id)  
+        
+        return res.redirect("recipes")
     }
 }

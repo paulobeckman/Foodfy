@@ -13,6 +13,7 @@ routes.get('/recipes/:id/edit', Recipes.edit)
 
 routes.post('/recipes', multer.array("photos", 6), Recipes.post)
 routes.put('/recipes', multer.array("photos", 6), Recipes.update)
+routes.delete('/recipes', Recipes.delete)
 
 //CHEFS
 routes.get('/chefs', Chefs.index)
@@ -22,5 +23,6 @@ routes.get('/chefs/:id/edit', Chefs.edit)
 
 routes.post('/chefs', multer.array("photos", 1), Chefs.post)
 routes.put('/chefs', multer.array("photos", 1), Chefs.update)
+// routes.delete('/chefs', Chefs.delete)
 
 module.exports = routes
