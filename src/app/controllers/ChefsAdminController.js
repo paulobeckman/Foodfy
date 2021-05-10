@@ -72,10 +72,11 @@ module.exports = {
             const keys = Object.keys(req.body)
         
             for(key of keys) {
-                if (req.body[key] == ""){
+                if (req.body[key] == "" && key != "removed_files"){
                     return res.send('Please, fill all fields!')
                 }
             }
+
 
             if(req.files.length != 0){
                 let results = await File.create(req.files[0])
@@ -97,7 +98,7 @@ module.exports = {
             return res.redirect(`chefs/${req.body.id}`)
 
         } catch (error) {
-            
+            console.error(error)
         }
     }
 }

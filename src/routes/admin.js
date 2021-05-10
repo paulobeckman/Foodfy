@@ -9,9 +9,10 @@ const Chefs = require('../app/controllers/ChefsAdminController')
 routes.get('/recipes', Recipes.index)
 routes.get('/recipes/create', Recipes.create)
 routes.get('/recipes/:id', Recipes.show)
-// routes.get('/recipes/:id/edit', Recipes.edit)
+routes.get('/recipes/:id/edit', Recipes.edit)
 
 routes.post('/recipes', multer.array("photos", 6), Recipes.post)
+routes.put('/recipes', multer.array("photos", 6), Recipes.update)
 
 //CHEFS
 routes.get('/chefs', Chefs.index)
