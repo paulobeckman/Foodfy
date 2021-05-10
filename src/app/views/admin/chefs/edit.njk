@@ -5,22 +5,23 @@
 {% endblock %}
 
 {%block content%}
-    <form id="delete_form" action="/admin/chefs?_method=DELETE" method="POST">
+    <div class="header_page">
+        <h1>Editando Chef</h1>
+        <div class="buttons">
+            <button type="submit" form="form-recipes-delete" class="admin_button">Deletar</button>
+            <button type="submit" form="form-recipes-edit" id="create">Salvar chef</button>
+        </div>
+    </div>
+
+    <form id="form-recipes-delete" action="/admin/chefs?_method=DELETE" method="POST">
         <input 
             type="hidden"
             name="id"
             value="{{chef.id}}"
         >
-        <button type="submit">Deletar</button>
     </form>
 
-    <form method="POST" action="/admin/chefs?_method=PUT" enctype="multipart/form-data">
-        <div class="header_page">
-            <h1>Editando Chef</h1>
-
-            <button type="submit" id="create">Salvar chef</button>
-        </div>
-
+    <form id="form-recipes-edit" method="POST" action="/admin/chefs?_method=PUT" enctype="multipart/form-data">
         {%include 'admin/chefs/fields.njk'%}
 
         <input 
@@ -28,6 +29,5 @@
             name="id" 
             value={{chef.id}}
         >  
-
     </form>
 {%endblock%}

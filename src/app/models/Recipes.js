@@ -90,24 +90,5 @@ module.exports = {
         } catch(err){
             console.error(err)
         }
-    },
-    // findBy(filter, callback){
-    //     db.query(`
-    //         SELECT recipes.*, chefs.name AS chef_name
-    //         FROM recipes
-    //         LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-    //         WHERE recipes.title ILIKE '%${filter}%'
-    //         `, function(err, results) {
-    //             if (err) throw `Database error ${err}`
-
-    //                 callback(results.rows)
-    //     })
-    // },
-    // file(id){
-    //     return db.query(`
-    //             SELECT * 
-    //             FROM recipe_files 
-    //             LEFT JOIN files ON (files.id = recipe_files.file_id)
-    //             WHERE recipe_id = $1`, [id])
-    // }
+    }
 }

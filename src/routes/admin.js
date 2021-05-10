@@ -23,6 +23,6 @@ routes.get('/chefs/:id/edit', Chefs.edit)
 
 routes.post('/chefs', multer.array("photos", 1), Chefs.post)
 routes.put('/chefs', multer.array("photos", 1), Chefs.update)
-// routes.delete('/chefs', Chefs.delete)
+routes.delete('/chefs', Chefs.delete)
 
 module.exports = routes

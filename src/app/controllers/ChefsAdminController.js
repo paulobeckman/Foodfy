@@ -100,5 +100,15 @@ module.exports = {
         } catch (error) {
             console.error(error)
         }
+    },
+    async delete(req, res){
+        let results = await Chef.find(req.body.id)
+        const file_id = results.rows[0].file_id
+
+        await Chef.delete(req.body.id)
+
+        await File.delete(file_id)
+
+        return res.redirect("chefs")
     }
 }
