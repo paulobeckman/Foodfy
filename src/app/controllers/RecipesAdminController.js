@@ -115,12 +115,12 @@ module.exports = {
             }
 
             if(req.files.length != 0){
-                const filesPromise = req.files.map(file => File.create(file))
+                const filesPromise = req.files.map(file => File.create(file)) 
                 const fileResults = await Promise.all(filesPromise)
                 const filesPromiseResults = fileResults.map(file => {
                     const  file_id = file.rows[0].id
         
-                    Recipe_File.update({recipe_id: req.body.id, file_id})
+                    Recipe_File.create({recipe_id: req.body.id, file_id})
                 })
 
                 await Promise.all(filesPromiseResults)
@@ -132,13 +132,14 @@ module.exports = {
                 const removedFiles = req.body.removed_files.split(",")
                 const lastIndex = removedFiles.length - 1
                 removedFiles.splice(lastIndex, 1)
-                
-                const removedFilesPromise = removedFiles.map(id => File.delete(id))
+
+                removedFiles.map(id => Recipe_File.deleteByFile(id))             
+                const removedFilesPromise = await removedFiles.map(id => File.delete(id))
                 
                 await Promise.all(removedFilesPromise)
             }
 
-            return res.redirect(`recipes/${req.body.id}`)
+            return await res.redirect(`recipes/${req.body.id}`)
 
         } catch (error) {
             console.error(error)

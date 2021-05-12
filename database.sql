@@ -6,7 +6,7 @@ CREATE TABLE "recipes" (
   "chef_id" int,
   "title" text,
   "ingredients" text[],
-  "preparation" text[],
+  "preparations" text[],
   "information" text,
   "created_at" timestamp
 );
