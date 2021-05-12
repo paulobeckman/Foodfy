@@ -74,13 +74,18 @@ module.exports = {
 
     },
     files(id){
-        return db.query(`
-            SELECT * 
-            FROM files 
-            WHERE id = (SELECT chefs.file_id
-                FROM chefs
-                WHERE chefs.id = $1)`, [id]
-        ) 
+        try{
+            return db.query(`
+                SELECT * 
+                FROM files 
+                WHERE id = (SELECT chefs.file_id
+                    FROM chefs
+                    WHERE chefs.id = $1)`, [id]
+            ) 
+
+        } catch (error) {
+            console.error(error)
+        }
     },
     delete(id) {
         try{

@@ -11,8 +11,8 @@ routes.get('/recipes/create', Recipes.create)
 routes.get('/recipes/:id', Recipes.show)
 routes.get('/recipes/:id/edit', Recipes.edit)
 
-routes.post('/recipes', multer.array("photos", 6), Recipes.post)
-routes.put('/recipes', multer.array("photos", 6), Recipes.update)
+routes.post('/recipes', multer.array("photos", 5), Recipes.post)
+routes.put('/recipes', multer.array("photos", 5), Recipes.update)
 routes.delete('/recipes', Recipes.delete)
 
 //CHEFS
