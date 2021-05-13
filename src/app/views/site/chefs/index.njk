@@ -6,84 +6,20 @@
 
 {% block content %}
     <div class="cards_chefs">
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <p>3 receitas</p>
-            </section>
-        </div>
-
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <p>3 receitas</p>
-            </section>
-        </div>
-
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <p>3 receitas</p>
-            </section>
-        </div>
-
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <p>3 receitas</p>
-            </section>
-        </div>
-
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <p>3 receitas</p>
-            </section>
-        </div>
-
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <p>3 receitas</p>
-            </section>
-        </div>
-
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <p>3 receitas</p>
-            </section>
-        </div>
-
-        <div class="card_chef">
-            <section>
-                <img src="/images/boss.jpg" alt="imagem chef">
-            </section>
-            <section>
-                <h1>Júlia Kinoto</h1>
-                <p>3 receitas</p>
-            </section>
-        </div>
+        {%for chef in chefs%}
+            <div class="card_chef">
+                <section>
+                    <img src="{{chef.src}}"" alt="{{chef.name}}">
+                </section>
+                <section>
+                    <h1>{{chef.name}}</h1>
+                    {%if chef.total_recipes > 1%}
+                        <p>{{chef.total_recipes}} receitas</p>
+                    {% else %}
+                        <p>{{chef.total_recipes}} receita</p>
+                    {%endif%}
+                </section>
+            </div>
+        {%endfor%}
     </div>
 {% endblock %}

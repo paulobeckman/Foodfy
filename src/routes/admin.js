@@ -2,8 +2,8 @@ const express = require('express')
 const routes = express.Router()
 const multer = require('../app/middlewares/multer')
 
-const Recipes = require('../app/controllers/RecipesAdminController')
-const Chefs = require('../app/controllers/ChefsAdminController')
+const Recipes = require('../app/controllers/admin/RecipesController')
+const Chefs = require('../app/controllers/admin/ChefsController')
 
 //RECIPES
 routes.get('/recipes', Recipes.index)

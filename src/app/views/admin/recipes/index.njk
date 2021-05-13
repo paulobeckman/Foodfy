@@ -12,7 +12,9 @@
             {%for recipe in recipes%}
                 <div class="card">
                     <section>
-                        <img src="/images/asinhas.png" alt="imagem chef">
+                        <div class="card_img">
+                            <img src="{{recipe.src}}" alt="imagem chef">
+                        </div>
                     </section>
                     <section>
                         <h2>{{recipe.title}}</h2>

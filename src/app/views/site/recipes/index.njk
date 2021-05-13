@@ -7,40 +7,16 @@
 {% block content %}
     <div class="cards_recipes recipes">
         <div class="cards">
-            <div class="card">
-                <img src="/images/asinhas.png" alt="imagem receita">
-                <h2>Triplo bacon burger</h2>
-                <p>por Jorge Relato</p>
-            </div>
-
-            <div class="card">
-                <img src="/images/asinhas.png" alt="imagem receita">
-                <h2>Triplo bacon burger</h2>
-                <p>por Jorge Relato</p>
-            </div>
-
-            <div class="card">
-                <img src="/images/asinhas.png" alt="imagem receita">
-                <h2>Triplo bacon burger</h2>
-                <p>por Jorge Relato</p>
-            </div>
-
-            <div class="card">
-                <img src="/images/asinhas.png" alt="imagem receita">
-                <h2>Triplo bacon burger</h2>
-                <p>por Jorge Relato</p>
-            </div>
-
-            <div class="card">
-                <img src="/images/asinhas.png" alt="imagem receita">
-                <h2>Triplo bacon burger</h2>
-                <p>por Jorge Relato</p>
-            </div>
-
-            <div class="card">
-                <img src="/images/asinhas.png" alt="imagem receita">
-                <h2>Triplo bacon burger</h2>
-                <p>por Jorge Relato</p>
+            <div class="cards">
+                {% for recipe in recipes%}
+                    <div class="card">
+                        <div class="card_img">
+                            <img src="{{recipe.src}}" alt="{{recipe.title}}">
+                        </div>
+                        <h2>{{recipe.title}}</h2>
+                        <p>{{recipe.chef_name}}</p>
+                    </div>
+                {%endfor%}
             </div>
         </div>
     </div>

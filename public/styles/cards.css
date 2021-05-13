@@ -1,4 +1,4 @@
-/*== HOME ==*/
+/*== SITE ==*/
 /*== RECIPES ==*/
 .cards_recipes{
     margin: 50px 0;
@@ -19,10 +19,18 @@
     gap: 20px;
 }
 
-.card img{
+.card .card_img{
     height: 140px;
-    border-radius: 15px;
+    width: 300px;
+
     margin-bottom: 20px;
+}
+
+.card img{
+    height: 100%;
+    width: 100%;
+    border-radius: 15px;
+    object-fit: cover;
 }
 
 .card h2{
@@ -93,6 +101,14 @@
 
 .cards_recipes.admin .card section{
     display: grid;
+    height: 80px;
+    width: 172px;
+    object-fit: cover;
+}
+
+.cards_recipes.admin .card_img{
+    width: 172px;
+    height: 80px;
 }
 
 .cards_recipes.admin .card img{
@@ -100,6 +116,7 @@
     height: 100%;
     margin-bottom: 0;
     border-radius: 8.5px;
+    object-fit: cover;
 }
 
 .cards_recipes.admin .card p{

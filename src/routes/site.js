@@ -1,9 +1,9 @@
 const express = require('express')
 const routes = express.Router()
 
-const Home = require('../app/controllers/HomeController')
-const Recipes = require('../app/controllers/RecipesController')
-const Chefs = require('../app/controllers/ChefsController')
+const Home = require('../app/controllers/site/HomeController')
+const Recipes = require('../app/controllers/site/RecipesController')
+const Chefs = require('../app/controllers/site/ChefsController')
 
 routes.get('/', Home.index)
 routes.get('/about', function(req, res){

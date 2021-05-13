@@ -1,6 +1,7 @@
-const Chef = require('../models/Chef')
-const File = require('../models/File')
-const Recipe = require('../models/Recipes')
+const Chef = require('../../models/Chef')
+const File = require('../../models/File')
+const Recipe = require('../../models/Recipes')
+const Recipe_File = require('../../models/Recipe_Files')
 
 module.exports = {
     async index(req, res){
@@ -60,7 +61,19 @@ module.exports = {
             results = await Recipe.findByChefs(req.params.id)
             const recipes = results.rows
 
-            return res.render("admin/chefs/show", {chef: ChefAddingSrc, recipes})
+            const promisseRecipeFile = recipes.map(async recipe => {
+                const filesResults = await Recipe_File.find(recipe.id)
+                const file = filesResults.rows[0].path
+
+                return {
+                    ...recipe,
+                    src: `${req.protocol}://${req.headers.host}${file.replace("public", "")}`
+                }
+            })
+
+            const recipeFile = await Promise.all(promisseRecipeFile)
+
+            return res.render("admin/chefs/show", {chef: ChefAddingSrc, recipes: recipeFile})
 
         } catch (error) {
             console.error(error)
