@@ -68,6 +68,10 @@ header.home{
     outline: none;
 }
 
+.filter_recipes input{
+    width: 246px;
+}
+
 .container .home input{
     max-width: 246px;
     margin-top: 0;

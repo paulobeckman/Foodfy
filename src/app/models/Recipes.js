@@ -1,5 +1,4 @@
 const db = require('../../config/db')
-const { date } = require('../../lib/utils')
 
 module.exports = {
     all() {
@@ -103,6 +102,19 @@ module.exports = {
 
         } catch(err){
             console.error(err)
+        }
+    },
+    search(filter){
+        try {
+            return db.query(`
+                SELECT recipes.title, recipes.id, chefs.name AS chef_name
+                FROM recipes
+                LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+                WHERE recipes.title ILIKE '%${filter}%'
+                ORDER BY recipes.updated_at DESC
+            `)
+        } catch (error) {
+            console.error(error)
         }
     }
 }
