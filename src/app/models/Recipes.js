@@ -8,7 +8,7 @@ module.exports = {
                 SELECT recipes.*, chefs.name AS chef_name 
                 FROM recipes 
                 LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-                ORDER BY title ASC`
+                ORDER BY recipes.created_at DESC`
             )
         } catch(error){
             console.error(error)
@@ -22,9 +22,8 @@ module.exports = {
                     title,
                     ingredients,
                     preparations,
-                    information,
-                    created_at
-                ) VALUES ($1, $2, $3, $4, $5, $6)
+                    information
+                ) VALUES ($1, $2, $3, $4, $5)
                 RETURNING id
             `
 
@@ -33,8 +32,7 @@ module.exports = {
                 data.title,
                 data.ingredients,
                 data.preparations,
-                data.information,
-                date(Date.now()).iso
+                data.information
             ]
 
             return db.query(query, values)
@@ -61,7 +59,8 @@ module.exports = {
             return db.query(`
                 SELECT recipes.title, recipes.id
                 FROM recipes 
-                WHERE recipes.chef_id = $1`, [id]
+                WHERE recipes.chef_id = $1
+                ORDER BY recipes.created_at DESC`, [id]
             )
 
         } catch (error) {
