@@ -331,3 +331,42 @@ header.home.admin{
     color: #444444;
     line-height: 28px;
 }
+
+
+/*== LOGIN ==*/
+.container.login {
+    width: 38%;
+}
+
+.container.login header{
+    display: flex;
+    justify-content: center;
+}
+
+.container.login form .header{
+    display: flex;
+    justify-content: center;
+    margin-top: 16vh;
+    margin-bottom: 5vh;
+}
+
+.container.login form h1{
+    font-size: 24px;
+}
+
+.container.login .footer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.container.login .footer a{
+    font-size: 16px;
+    color: #969696;
+    font-weight: 700;
+}
+
+
+/*== FORGOT-PASSWORD ==*/
+.container.login .footer.right{
+    justify-content: flex-end;
+}
