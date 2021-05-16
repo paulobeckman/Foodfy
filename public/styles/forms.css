@@ -23,15 +23,12 @@
     cursor: pointer;
 }
 
-.header_page button.admin_button{
-    background: #DC4747;
-    color: #FFF;
-    right: 0;
-    border-radius: 4px;
-    font-size: 16px;
-    font-weight: 700;
+.admin_button.users{
+    padding: 9px 45px;
+}
 
-    padding: 9px 20px;
+button.admin_button.delete{
+    background: #DC4747;
     margin-right: 10px;
 }
 
@@ -173,6 +170,11 @@
     background: none;
     margin-bottom: 30px;
     cursor: pointer;
+}
+
+.admin_button_secondary.delete{
+    color: #DC4747;
+    margin-bottom: 0;
 }
 
 .item.change{
