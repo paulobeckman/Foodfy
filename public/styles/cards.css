@@ -143,3 +143,22 @@
     font-weight: 700;
     width: 55%;
 }
+
+
+/*== USERS ==*/
+.cards_users {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 50px;
+    column-gap: 150px;
+
+    margin-top: 65px;
+}
+
+.cards_users .buttons {
+    margin-top: 16px;
+}
+
+.cards_users .buttons a:first-child{
+    margin-right: 16px;
+}
