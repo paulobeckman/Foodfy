@@ -1,0 +1,25 @@
+{% extends '../layout.njk' %}
+
+{% block content %}
+
+    <form method = "POST" action = "/admin/users" enctype="multipart/form-data">
+        <div class="header_page">
+            <h1>Criar Usuário</h1>
+
+            <div class="buttons">
+                <button type="submit" id="create" class="admin_button users">Salvar</button>
+                <a href="/admin/users" class="admin_button users secondary">Cancelar</a>
+            </div>
+        </div>
+
+        <div class="form_grid">
+            {% include 'admin/users/fields.njk' %}
+        </div>
+
+        <div class="checkbox">
+            <input type="checkbox" id="admin" name="admin">
+            <label for="admin">Administrador</label>
+        </div>
+    </form>
+
+{% endblock %}

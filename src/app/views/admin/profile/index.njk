@@ -1,0 +1,14 @@
+{% extends '../layout.njk' %}
+
+{% block content %}
+    <form method = "POST" action = "/admin/users" enctype="multipart/form-data">
+        <div class="header_page">
+            <h1>Bem vindo Diego</h1>
+            <button type="submit" id="create" class="admin_button users">Salvar</button>
+        </div>
+
+        <div class="form_grid">
+            {% include 'admin/profile/fields.njk' %}
+        </div>
+    </form>
+{% endblock %}

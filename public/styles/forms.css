@@ -27,6 +27,11 @@
     padding: 9px 45px;
 }
 
+.admin_button.users.secondary{
+    background: #8A8A8A;
+    margin-left: 16px;
+}
+
 button.admin_button.delete{
     background: #DC4747;
     margin-right: 10px;
@@ -186,4 +191,21 @@ button.admin_button.delete{
     resize: none;
 }
 
-/*==DELETE==*/
+/*== USERS ==*/
+/*== CREATE ==*/
+.form_grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 6vh;
+    margin-top: 60px;
+}
+
+.checkbox input {
+    width: auto;
+    margin-right: 6px;
+}
+
+.checkbox label {
+    font-size: 16px;
+    font-weight: 700;
+} 
