@@ -174,9 +174,14 @@ header.home.admin{
     font-weight: 700;
 }
 
-.links.logout a{
+.links.logout form button{
     color: #FFF;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
     margin-right: 0;
+    background: none;
+    cursor: pointer;
 }
 
 
