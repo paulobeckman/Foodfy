@@ -12,7 +12,7 @@ routes.get('/profile', onlyUsers, ProfileController.index) // Mostrar o formulá
 
 // Rotas que o administrador irá acessar para gerenciar usuários
 routes.get('/users', onlyUsers, UserController.list) // Mostrar a lista de usuários cadastrados
-// routes.post('/users', onlyUsers, UserController.post) // Cadastrar um usuário
+routes.post('/users', onlyUsers, UserController.post) // Cadastrar um usuário
 routes.get('/users/create', onlyUsers, UserController.create) // Mostrar o formulário de criação de um usuário
 // routes.put('/users/:id', onlyUsers, UserController.put) // Editar um usuário
 routes.get('/users/:id/edit', onlyUsers, UserController.edit) // Mostrar o formulário de edição de um usuário

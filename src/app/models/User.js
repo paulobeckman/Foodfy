@@ -90,4 +90,15 @@ module.exports = {
     //         })
     //     })
     // }
+    find(id){
+        try {
+            return db.query(`
+                SELECT * 
+                FROM users
+                WHERE id = $1
+            `, [id])
+        } catch (error) {
+            console.error(error)
+        }
+    }
 }
