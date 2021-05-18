@@ -1,3 +1,4 @@
+const User = require('../../models/User')
 const Chef = require('../../models/Chef')
 const File = require('../../models/File')
 const Recipe = require('../../models/Recipes')
@@ -73,7 +74,10 @@ module.exports = {
 
             const recipeFile = await Promise.all(promisseRecipeFile)
 
-            return res.render("admin/chefs/show", {chef: ChefAddingSrc, recipes: recipeFile})
+            results = await User.find(req.session.userId)
+            const loggedUser = results.rows[0].is_admin   
+
+            return res.render("admin/chefs/show", {chef: ChefAddingSrc, recipes: recipeFile, loggedUser})
 
         } catch (error) {
             console.error(error)

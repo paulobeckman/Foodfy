@@ -4,6 +4,16 @@ const fs = require('fs')
 // const Product = require('./Product')
 
 module.exports = {
+    all(){
+        try {
+            return db.query(`
+                SELECT *
+                FROM users
+            `)
+        } catch (error) {
+            console.error(error)
+        }
+    },
     async findOne(filters){
         let query = "SELECT * FROM users"
 

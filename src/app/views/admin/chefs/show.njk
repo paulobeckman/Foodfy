@@ -8,7 +8,9 @@
     <div class="header_page">
         <h1>Chef: {{chef.name}}</h1>
 
-        <a href="{{chef.id}}/edit" class="admin_button">Editar chef</a>
+        {%if loggedUser == true%}
+            <a href="{{chef.id}}/edit" class="admin_button">Editar chef</a>
+        {%endif%}
     </div>
 
     <div class="page_information chef">

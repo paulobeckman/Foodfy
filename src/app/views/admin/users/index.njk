@@ -7,130 +7,35 @@
 {% block content %}
     <div class="header_page users">
         <h1>Usuários</h1>
-        <a href="users/create" class="admin_button users">Novo</a>
+        {%if loggedUser == true%}
+            <a href="users/create" class="admin_button users">Novo</a>
+        {%endif%}
     </div>
 
     <div class="cards_users">
-        <div class="card">
-            <div class="infor">
-                <h2>Diego Fernandes</h2>
-                <p>diego@rocketseat.com.br</p>
+        {%for user in users%}
+            <div class="card">
+                <div class="infor">
+                    <h2>{{user.name}}</h2>
+                    <p>{{user.email}}</p>
+                </div>
+
+                {%if loggedUser == true%}
+                    <div class="buttons">
+                        <a href="/admin/users/{{user.id}}/edit" class="admin_button_secondary">Editar</a>
+                        <button type="submit" form="form-recipes-delete" class="admin_button_secondary delete">Remover</button>
+                    </div>
+                {%endif%}
+
+                <form id="form-recipes-delete" method="POST" action="/admin/recipes?_method=DELETE">
+                    <input 
+                        type="hidden"
+                        name="id"
+                        value={{user.id}}
+                    >
+                </form>
             </div>
-
-            <div class="buttons">
-                <a href="*" class="admin_button_secondary">Editar</a>
-                <button type="submit" form="form-recipes-delete" class="admin_button_secondary delete">Remover</button>
-            </div>
-
-            <form id="form-recipes-delete" method="POST" action="/admin/recipes?_method=DELETE">
-                <input 
-                    type="hidden"
-                    name="id"
-                    value={{recipe.id}}
-                >
-            </form>
-        </div>
-
-        <div class="card">
-            <div class="infor">
-                <h2>Diego Fernandes</h2>
-                <p>diego@rocketseat.com.br</p>
-            </div>
-
-            <div class="buttons">
-                <a href="*" class="admin_button_secondary">Editar</a>
-                <button type="submit" form="form-recipes-delete" class="admin_button_secondary delete">Remover</button>
-            </div>
-
-            <form id="form-recipes-delete" method="POST" action="/admin/recipes?_method=DELETE">
-                <input 
-                    type="hidden"
-                    name="id"
-                    value={{recipe.id}}
-                >
-            </form>
-        </div>
-
-        <div class="card">
-            <div class="infor">
-                <h2>Diego Fernandes</h2>
-                <p>diego@rocketseat.com.br</p>
-            </div>
-
-            <div class="buttons">
-                <a href="*" class="admin_button_secondary">Editar</a>
-                <button type="submit" form="form-recipes-delete" class="admin_button_secondary delete">Remover</button>
-            </div>
-
-            <form id="form-recipes-delete" method="POST" action="/admin/recipes?_method=DELETE">
-                <input 
-                    type="hidden"
-                    name="id"
-                    value={{recipe.id}}
-                >
-            </form>
-        </div>
-
-        
-        <div class="card">
-            <div class="infor">
-                <h2>Diego Fernandes</h2>
-                <p>diego@rocketseat.com.br</p>
-            </div>
-
-            <div class="buttons">
-                <a href="*" class="admin_button_secondary">Editar</a>
-                <button type="submit" form="form-recipes-delete" class="admin_button_secondary delete">Remover</button>
-            </div>
-
-            <form id="form-recipes-delete" method="POST" action="/admin/recipes?_method=DELETE">
-                <input 
-                    type="hidden"
-                    name="id"
-                    value={{recipe.id}}
-                >
-            </form>
-        </div>
-
-        <div class="card">
-            <div class="infor">
-                <h2>Diego Fernandes</h2>
-                <p>diego@rocketseat.com.br</p>
-            </div>
-
-            <div class="buttons">
-                <a href="*" class="admin_button_secondary">Editar</a>
-                <button type="submit" form="form-recipes-delete" class="admin_button_secondary delete">Remover</button>
-            </div>
-
-            <form id="form-recipes-delete" method="POST" action="/admin/recipes?_method=DELETE">
-                <input 
-                    type="hidden"
-                    name="id"
-                    value={{recipe.id}}
-                >
-            </form>
-        </div>
-
-        <div class="card">
-            <div class="infor">
-                <h2>Diego Fernandes</h2>
-                <p>diego@rocketseat.com.br</p>
-            </div>
-
-            <div class="buttons">
-                <a href="*" class="admin_button_secondary">Editar</a>
-                <button type="submit" form="form-recipes-delete" class="admin_button_secondary delete">Remover</button>
-            </div>
-
-            <form id="form-recipes-delete" method="POST" action="/admin/recipes?_method=DELETE">
-                <input 
-                    type="hidden"
-                    name="id"
-                    value={{recipe.id}}
-                >
-            </form>
-        </div>
+        {%endfor%}
     </div>
 
     

@@ -3,8 +3,18 @@ const crypto = require('crypto')
 const mailer = require('../../../lib/mailer')
 
 module.exports = {
-    list(req, res){
-        return res.render("admin/users/index")
+    async list(req, res){
+        try {
+            let results = await User.all()
+            const users = results.rows
+
+            results = await User.find(req.session.userId)
+            const loggedUser = results.rows[0].is_admin           
+
+            return res.render("admin/users/index", {users, loggedUser})
+        } catch (error) {
+            console.error(error)
+        }
     },
     create(req, res){
         return res.render("admin/users/create")
@@ -20,7 +30,7 @@ module.exports = {
     
             if(loggedUser.is_admin === false){
                 return res.render("admin/users/index", {
-                    success: "Essa conta não é uma conta administradora"
+                    error: "Essa conta não é uma conta administradora"
                 })
             }
             
@@ -55,7 +65,14 @@ module.exports = {
             })
         }
     },
-    edit(req, res){
-        return res.render("admin/users/edit")
+    async edit(req, res){
+        try {
+            let results = await User.find(req.params.id)
+            const user = results.rows[0]
+
+            return res.render("admin/users/edit", {user})
+        } catch (error) {
+            console.error(error)
+        }
     }
 }
