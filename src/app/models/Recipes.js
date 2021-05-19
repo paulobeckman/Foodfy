@@ -66,6 +66,19 @@ module.exports = {
             console.error(error)
         }
     },
+    findByUser(id){
+        try{
+            return db.query(`
+                SELECT recipes.title, recipes.id
+                FROM recipes 
+                WHERE recipes.user_id = $1
+                ORDER BY recipes.created_at DESC`, [id]
+            )
+
+        } catch (error) {
+            console.error(error)
+        }
+    },
     update(data) {
         try{
             const query = (`

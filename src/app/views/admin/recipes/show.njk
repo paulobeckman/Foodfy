@@ -7,7 +7,13 @@
 {%block content%}
     <div class="header_page">
         <h1>Receita: {{recipe.title}}</h1>
-        <a href="{{recipe.id}}/edit" class="admin_button">Editar Receita</a>
+            {%if recipe.user_id === loggedUser.id%}
+                <a href="{{recipe.id}}/edit" class="admin_button">Editar Receita</a>
+            {%else%}
+                {%if loggedUser.is_admin === true%}
+                    <a href="{{recipe.id}}/edit" class="admin_button">Editar Receita</a>
+                {%endif%}
+            {%endif%}
     </div>
 
     <div class="page_information recipe">
