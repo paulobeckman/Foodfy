@@ -1,3 +1,4 @@
+const User = require('../../models/User')
 const Chef = require('../../models/Chef')
 const Recipe = require('../../models/Recipes')
 const File = require('../../models/File')
@@ -6,7 +7,7 @@ const Recipe_File = require('../../models/Recipe_Files')
 module.exports = {
     async index(req, res){
         try{
-            let results = await Recipe.all()
+            let results = await Recipe.findByUser(req.session.userId)
             const recipes = results.rows
             
             const promisseRecipeFile = recipes.map(async recipe => {
@@ -89,8 +90,11 @@ module.exports = {
                 files
             }
 
-            return res.render("admin/recipes/show", {recipe: RecipeFiles})
-        
+            results = await User.find(req.session.userId)
+            const loggedUser = results.rows[0]  
+
+            return res.render("admin/recipes/show", {recipe: RecipeFiles, loggedUser})
+            
         } catch (error) {
             console.error(error)
         }

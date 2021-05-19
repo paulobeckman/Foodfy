@@ -5,7 +5,7 @@
 {% endblock %}
 
 {%block content%}
-    <form method="POST" action="/users/login">
+    <form method="POST" action="/admin/login">
         <div class="header">
             <h1>Iniciar Sessão</h1>
         </div>
@@ -13,7 +13,7 @@
         {% include 'session/fields/login.njk' %}    
 
         <div class="footer">
-            <a href="*">Perdeu a senha?</a>
+            <a href="/admin/forgot-password">Perdeu a senha?</a>
             <button type="submit" class="admin_button">Acessar</button>    
         </div>
     </form>
