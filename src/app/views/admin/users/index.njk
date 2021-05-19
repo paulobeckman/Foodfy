@@ -20,14 +20,23 @@
                     <p>{{user.email}}</p>
                 </div>
 
-                {%if loggedUser == true%}
-                    <div class="buttons">
-                        <a href="/admin/users/{{user.id}}/edit" class="admin_button_secondary">Editar</a>
-                        <button type="submit" form="form-recipes-delete" class="admin_button_secondary delete">Remover</button>
-                    </div>
-                {%endif%}
+                <div class="buttons">
+                    {%if loggedUser == true%}
+                        {%if loggedUserId === user.id%}
+                            <a href="/admin/profile" class="admin_button_secondary">Editar</a>
+                        {%else%}
+                            <a href="/admin/users/{{user.id}}/edit" class="admin_button_secondary">Editar</a>
+                            <button type="submit" form="form-recipes-delete" class="admin_button_secondary delete">Remover</button>
+                        {%endif%}
 
-                <form id="form-recipes-delete" method="POST" action="/admin/recipes?_method=DELETE">
+                    {%else%}
+                        {%if loggedUserId === user.id%}
+                            <a href="/admin/profile" class="admin_button_secondary">Editar</a>
+                        {%endif%}
+                    {%endif%}
+                </div>
+
+                <form id="form-recipes-delete" method="POST" action="/admin/users/{{user.id}}?_method=DELETE">
                     <input 
                         type="hidden"
                         name="id"

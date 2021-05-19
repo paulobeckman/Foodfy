@@ -9,9 +9,12 @@ module.exports = {
             const users = results.rows
 
             results = await User.find(req.session.userId)
-            const loggedUser = results.rows[0].is_admin           
+            const loggedUser = results.rows[0].is_admin
+            const loggedUserId = results.rows[0].id
+            
 
-            return res.render("admin/users/index", {users, loggedUser})
+
+            return res.render("admin/users/index", {users, loggedUser, loggedUserId})
         } catch (error) {
             console.error(error)
         }
@@ -54,9 +57,7 @@ module.exports = {
             await User.create({...req.body, password})
 
             //avisar o usuário que enviamos o email
-            return res.render("admin/users/index", {
-                success: "Verifique seu email para visualizar sua senha"
-            })
+            return res.redirect("/admin/users")
 
         }catch(err){
             console.error(err)
@@ -71,6 +72,33 @@ module.exports = {
             const user = results.rows[0]
 
             return res.render("admin/users/edit", {user})
+        } catch (error) {
+            console.error(error)
+        }
+    },
+    async put(req, res){
+        try{
+            const keys = Object.keys(req.body)
+        
+            for(key of keys) {
+                if (req.body[key] == ""){
+                    return res.send('Please, fill all fields!')
+                }
+            }
+
+            await User.update(req.body)
+
+            return res.redirect(`/admin/users/${req.body.id}/edit`)
+        }catch(error){
+            console.error(error)
+        }
+    },
+    async delete(req, res){
+        try {
+            await User.delete(req.body.id)
+            // console.log(req.body.id)
+            return res.redirect("/admin/users")
+            
         } catch (error) {
             console.error(error)
         }

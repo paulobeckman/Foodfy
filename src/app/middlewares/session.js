@@ -38,9 +38,21 @@ async function isAdminUserRedirectToChefs (req, res, next){
     next()
 }
 
+async function cannotDeleteYourProfile (req, res, next){
+    let results = await User.find(req.session.userId)
+    const user = results.rows[0]
+
+    if(user){
+        return res.redirect("/admin/users")
+    }
+
+    next()
+}
+
 module.exports = {
     onlyUsers,
     isLoggedRedirectToUsers,
     isAdminUserRedirectToUsers,
-    isAdminUserRedirectToChefs
+    isAdminUserRedirectToChefs,
+    cannotDeleteYourProfile
 }

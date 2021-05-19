@@ -1,11 +1,17 @@
 {% extends '../layout.njk' %}
 
 {% block content %}
-    <form method = "POST" action = "/admin/users" enctype="multipart/form-data">
+    <form method = "POST" action = "/admin/profile?_method=PUT">
         <div class="header_page">
-            <h1>Bem vindo Diego</h1>
+            <h1>Bem vindo {{user.name}}</h1>
             <button type="submit" id="create" class="admin_button users">Salvar</button>
         </div>
+
+        <input 
+            type="hidden"
+            name="id"
+            value={{user.id}}
+        >
 
         <div class="form_grid">
             {% include 'admin/profile/fields.njk' %}

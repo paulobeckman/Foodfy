@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <form id="form-recipes-delete" method="POST" action="/admin/users?_method=DELETE">
+    <form id="form-recipes-delete" method="POST" action="/admin/users/{{user.id}}?_method=DELETE">
         <input 
             type="hidden"
             name="id"
@@ -19,10 +19,16 @@
         >
     </form>
 
-    <form id="form-recipes-edit" method = "POST" action = "/admin/users" enctype="multipart/form-data">
+    <form id="form-recipes-edit" method="POST" action="/admin/users/{{user.id}}?_method=PUT">
         <div class="form_grid">
             {% include 'admin/users/fields.njk' %}
         </div>
+
+        <input 
+            type="hidden"
+            name="id"
+            value={{user.id}}
+        >
 
         <div class="checkbox">
             <input type="checkbox" id="admin" name="admin">
