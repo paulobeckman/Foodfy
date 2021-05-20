@@ -56,14 +56,14 @@ module.exports = {
 
             await User.create({...req.body, password})
 
-            //avisar o usuário que enviamos o email
-            return res.redirect("/admin/users")
+            const userName = req.body.name
 
-        }catch(err){
-            console.error(err)
-            res.render("admin/users/create", {
-                error: "Erro inesperado, tente novamente"
-            })
+            //avisar o usuário que enviamos o email
+            return res.render("admin/users/alert/success", {userName})
+
+        }catch(error){
+            console.error(error)
+            return res.render("admin/users/alert/success")
         }
     },
     async edit(req, res){

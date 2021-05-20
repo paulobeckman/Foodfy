@@ -24,29 +24,19 @@ module.exports = {
     },
     async post(req, res){
         try {
-            const keys = Object.keys(req.body)
-        
-            for(key of keys) {
-                if (req.body[key] == ""){
-                    return res.send('Please, fill all fields!')
-                }
-            }
-            
-            if (req.files.length == 0){
-                return res.send('Please, send at least one image')        
-            }
-
             let results = await File.create(req.files[0])
             const file_id = results.rows[0].id
             
             results = await Chef.create({...req.body, file_id})
             const chefId = results.rows[0].id
 
+            const chefName = req.body.name
 
-            return res.redirect(`chefs/${chefId}/edit`)
+            return res.render(`admin/chefs/alert/success`, {chefName})
 
         } catch (error) {
             console.error(error)
+            return res.render('admin/chefs/alert/error')
         }
     },
     async show(req, res){
@@ -106,15 +96,6 @@ module.exports = {
     },
     async update(req, res){
         try {
-            const keys = Object.keys(req.body)
-        
-            for(key of keys) {
-                if (req.body[key] == "" && key != "removed_files"){
-                    return res.send('Please, fill all fields!')
-                }
-            }
-
-
             if(req.files.length != 0){
                 let results = await File.create(req.files[0])
                 const file_id = results.rows[0].id

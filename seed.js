@@ -5,8 +5,8 @@ const User = require('./src/app/models/User')
 async function createUsers() {
 
     const user = {
-        name: 'Paulo Beckman',
-        email: 'beckmam.paulo@hotmail.com',
+        name: 'admin',
+        email: 'admin@gmail.com',
         password: '1111',
         is_admin: true
     }

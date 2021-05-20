@@ -1,23 +1,43 @@
 <div class="item">
     <div>Email</div>
     <div class="input">
-        <input 
-            type="email"
-            name="email"
-            placeholder="Digite seu Email"
-            value="{{user.email}}"
-            onblur="Validate.apply(this, 'isEmail')"
-        >
+        {% if error %}
+            <input 
+                class= "error"
+                type="email"
+                name="email"
+                placeholder="Digite seu Email"
+                value="{{user.email}}"
+                onblur="Validate.apply(this, 'isEmail')"
+            >
+        {%else%}
+            <input 
+                type="email"
+                name="email"
+                placeholder="Digite seu Email"
+                value="{{user.email}}"
+                onblur="Validate.apply(this, 'isEmail')"
+            >
+        {% endif %}
     </div>
 </div>
 
 <div class="item">
     <div>Senha</div>
     <div class="input">
-        <input 
-            type="password"
-            name="password"
-            placeholder="Digite sua senha"
-         >
+        {% if error %}
+            <input 
+                class="error"
+                type="password"
+                name="password"
+                placeholder="Digite sua senha"
+            >
+        {% else %}
+            <input 
+                type="password"
+                name="password"
+                placeholder="Digite sua senha"
+            >
+        {% endif %}
     </div>
 </div> 

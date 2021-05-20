@@ -15,7 +15,7 @@ async function login(req, res, next){
 
     if(!passed) return res.render("session/login", {
         user: req.body,
-        error: "Senha incorreta."
+        error: "Senha incorreta!"
     })
 
     req.user = user

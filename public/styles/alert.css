@@ -1,0 +1,31 @@
+.alert-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.alert-message .alert-success,
+.alert-message .alert-error{
+    padding: 0;
+    padding-bottom: 112px;
+
+    text-align: center;
+
+    margin: auto;
+}
+
+.alert-message .success-lottie,
+.alert-message .error-lottie{
+    height: 200px;
+}
+
+.alert-message a{
+    margin-top: 20px;
+    font-size: 18px;
+    margin-bottom: 0;
+}
+
+.alert-message.error a{
+    color: #DC4747;
+}
