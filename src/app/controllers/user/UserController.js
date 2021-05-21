@@ -1,6 +1,5 @@
 const User = require('../../models/User')
 const Recipe = require('../../models/Recipes')
-const Chef = require('../../models/Chef')
 const File = require('../../models/File')
 const Recipe_File = require('../../models/Recipe_Files')
 const crypto = require('crypto')
@@ -106,7 +105,7 @@ module.exports = {
             const recipes = results.rows
 
             // se for encontrado receitas, deletar receitas e arquivos img
-            if(recipes.length != 0){
+            if(recipes){
                 const promisseRecipeFile = recipes.map(async recipe => {
                     let results = await Recipe_File.find(recipe.id)
                     const files = results.rows
