@@ -127,7 +127,38 @@ module.exports = {
     },
     async delete(req, res){
         try{
-            let results = await Chef.find(req.body.id)
+            let results = await Recipe.findByChefs(req.body.id)
+            const recipes = results.rows
+
+            // se for encontrado receitas, deletar receitas e arquivos img
+            if(recipes){
+                const promisseRecipeFile = recipes.map(async recipe => {
+                    let results = await Recipe_File.find(recipe.id)
+                    const files = results.rows
+
+                    let fil = []
+
+                    files.map(file => fil.push(file))
+
+                    return fil
+                })
+
+                const resultsFiles = await Promise.all(promisseRecipeFile)
+
+                await recipes.map(recipe => {
+                    Recipe_File.deleteByRecipe(recipe.id)
+                })
+
+                //deletando arquivos img de receitas
+                const removedFilesPromise = await resultsFiles.map(file => file.map(findFile => File.delete(findFile.id)))
+                await Promise.all(removedFilesPromise)
+
+                await recipes.map(recipe =>{
+                    Recipe.delete(recipe.id)  
+                })
+            }
+
+            results = await Chef.find(req.body.id)
             const file_id = results.rows[0].file_id
 
             await Chef.delete(req.body.id)
