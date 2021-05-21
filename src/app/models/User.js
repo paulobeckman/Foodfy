@@ -111,7 +111,7 @@ module.exports = {
     //             }
     //         })
     //     })
-    // }
+    // },
     find(id){
         try {
             return db.query(`

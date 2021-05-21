@@ -71,7 +71,7 @@ module.exports = {
     findByUser(id){
         try{
             return db.query(`
-                SELECT recipes.title, recipes.id
+                SELECT recipes.title, recipes.id, recipes.chef_id
                 FROM recipes 
                 WHERE recipes.user_id = $1
                 ORDER BY recipes.created_at DESC`, [id]
@@ -89,8 +89,7 @@ module.exports = {
                     title = ($2),
                     ingredients = ($3),
                     preparations = ($4),
-                    information = ($5),
-                    user_id = ($6)
+                    information = ($5)
                 WHERE id = $6
             `)
 
@@ -100,7 +99,6 @@ module.exports = {
                 data.ingredients,
                 data.preparations,
                 data.information,
-                data.user_id,
                 data.id
             ]
 

@@ -10,7 +10,7 @@ async function checkAllFildsCreate (req, res, next){
         }
     }
 
-    if(req.files.length == 0){
+    if(!req.files || req.files.length == 0){
         return res.render("admin/chefs/create", {
             chef: req.body,
             error: "Por favor, envie pelo menos uma imagem"

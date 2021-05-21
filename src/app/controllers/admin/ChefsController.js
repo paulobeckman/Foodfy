@@ -13,7 +13,10 @@ module.exports = {
                 src: `${req.protocol}://${req.headers.host}${chef.path.replace("public", "")}`
             }))
 
-            return res.render("admin/chefs/index", {chefs})
+            results = await User.find(req.session.userId)
+            const loggedUser = results.rows[0].is_admin   
+
+            return res.render("admin/chefs/index", {chefs, loggedUser})
                     
         } catch (error) {
             console.error(error)

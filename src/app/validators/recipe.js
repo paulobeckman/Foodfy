@@ -16,7 +16,7 @@ async function checkAllFildsCreate (req, res, next){
         }
     }
 
-    if(req.files.length == 0){
+    if(!req.files || req.files.length == 0){
         return res.render("admin/recipes/create", {
             recipe: req.body,
             chefs,
