@@ -157,6 +157,7 @@
 
 .cards_users .buttons {
     margin-top: 16px;
+    display: flex;
 }
 
 .cards_users .buttons a:first-child{

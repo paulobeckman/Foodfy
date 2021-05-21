@@ -103,9 +103,14 @@ module.exports = {
             }))
 
             results = await Chef.all()
-            const chefs = results.rows
+            const chefs = results.rows 
 
-            return res.render("admin/recipes/edit", {recipe, files, chefs})
+
+            results = await User.find(req.session.userId)
+            const loggedUser = results.rows[0].is_admin
+            const loggedUserId = results.rows[0].id
+
+            return res.render("admin/recipes/edit", {recipe, files, chefs, loggedUser, loggedUserId})
 
         } catch (error) {
             console.error(error)

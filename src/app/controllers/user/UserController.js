@@ -109,11 +109,13 @@ module.exports = {
             if(recipes.length != 0){
                 const promisseRecipeFile = recipes.map(async recipe => {
                     let results = await Recipe_File.find(recipe.id)
-                    const files = results.rows[0]
+                    const files = results.rows
 
-                    return {
-                        ...files
-                    }
+                    let fil = []
+
+                    files.map(file => fil.push(file))
+
+                    return fil
                 })
 
                 const resultsFiles = await Promise.all(promisseRecipeFile)
@@ -123,42 +125,13 @@ module.exports = {
                 })
 
                 //deletando arquivos img de receitas
-                if(resultsFiles.length > 1){
-                    const removedFilesPromise = await resultsFiles.map(file => File.delete(file.id))
-                    await Promise.all(removedFilesPromise)
-                } else {
-                    await File.delete(resultsFiles[0].id)
-                }
-                
+                const removedFilesPromise = await resultsFiles.map(file => file.map(findFile => File.delete(findFile.id)))
+                await Promise.all(removedFilesPromise)
+
                 await recipes.map(recipe =>{
                     Recipe.delete(recipe.id)  
                 })
             }
-
-
-
-            // if(chef.length != 0){
-            //     const promisseChefFile = recipes.map(async recipe => {
-            //         results = await Chef.find(recipes.chef_id)
-            //         const file_id = results.rows[0].file_id
-
-            //         await Chef.delete(recipe.chef_id)  
-
-            //         return {
-            //             ...file_id
-            //         }
-            //     })
-
-            //     const resultsFiles = await Promise.all(promisseChefFile)
-
-            //     //deletando arquivos img de receitas
-            //     if(resultsFiles.length > 1){
-            //         const removedFilesPromise = await resultsFiles.rows.map(file => File.delete(file.id))
-            //         await Promise.all(removedFilesPromise)
-            //     } else {
-            //         await File.delete(file.id)
-            //     }
-            // }
 
             await User.delete(req.params.id)
 
