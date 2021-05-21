@@ -155,10 +155,11 @@ module.exports = {
 
             await Recipe.delete(req.body.id)  
             
-            return res.redirect("recipes")
+            return res.render("admin/recipes/alert/delete-success")
             
         } catch (error) {
             console.error(error)
+            return res.render('admin/chefs/alert/delete-error')
         }
     }
 }

@@ -43,7 +43,7 @@ async function cannotDeleteYourProfile (req, res, next){
     let results = await User.find(req.session.userId)
     const user = results.rows[0]
 
-    if(user){
+    if(user && user.is_admin == false){
         return res.redirect("/admin/users")
     }
 

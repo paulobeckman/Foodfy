@@ -1,0 +1,24 @@
+{% extends '../../layout.njk'%}
+
+{%block content%}
+    <div class="alert-message success">
+        <div class="success-lottie"></div>
+        <h1>Usuário(a)</h1>
+        <h1>Deletado(a) com sucesso!</h1>
+
+        <a class="admin_button_secondary" href="/admin/users">Mostrar outros(as) usuário(a)</a>
+    </div>
+
+    <script src="/lottie.min.js"></script>
+    <script>
+        const  element = document.querySelector('.success-lottie')
+
+        lottie.loadAnimation({
+            container: element, // the dom element that will contain the animation
+            renderer: 'svg',
+            loop: false,
+            autoplay: true,
+            path: '/58413-delete-icon-animation.json' // the path to the animation json
+        });
+    </script>
+{%endblock%}

@@ -100,7 +100,7 @@ module.exports = {
                 let results = await File.create(req.files[0])
                 const file_id = results.rows[0].id
 
-                await Chef.update({...req.body, file_id})
+                await Chef.updateFileId(file_id)
             }
                     
             if (req.body.removed_files){
@@ -113,10 +113,13 @@ module.exports = {
                 await Promise.all(removedFilesPromise)
             }
 
+            await Chef.updateName(req.body)
+
             return res.redirect(`chefs/${req.body.id}`)
 
         } catch (error) {
             console.error(error)
+            return res.render({success: "Chef atualizado com sucesso!"})
         }
     },
     async delete(req, res){
@@ -128,10 +131,11 @@ module.exports = {
 
             await File.delete(file_id)
 
-            return res.redirect("chefs")
+            return res.render("admin/chefs/alert/delete-success")
 
         } catch (error) {
             console.error(error)
+            return res.render('admin/chefs/alert/delete-error')
         }
     }
 }

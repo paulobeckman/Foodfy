@@ -53,17 +53,15 @@ module.exports = {
             console.error(error)
         }
     },
-    update(data){
+    updateFileId(data){
         try {
             const query = `
                 UPDATE chefs SET
-                    name = ($1),
-                    file_id = ($2) 
-                WHERE id = $3
+                    file_id = ($1) 
+                WHERE id = $2
             ` 
 
             const values = [
-                data.name,
                 data.file_id,
                 data.id
             ]
@@ -74,6 +72,25 @@ module.exports = {
             console.error(error)
         }
 
+    },
+    updateName(data){
+        try {
+            const query = `
+                UPDATE chefs SET
+                    name = ($1)
+                WHERE id = $2
+            ` 
+
+            const values = [
+                data.name,
+                data.id
+            ]
+
+            return db.query(query, values)
+
+        } catch (error) {
+            console.error(error)
+        }
     },
     files(id){
         try{

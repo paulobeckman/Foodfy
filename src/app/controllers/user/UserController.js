@@ -11,8 +11,6 @@ module.exports = {
             results = await User.find(req.session.userId)
             const loggedUser = results.rows[0].is_admin
             const loggedUserId = results.rows[0].id
-            
-
 
             return res.render("admin/users/index", {users, loggedUser, loggedUserId})
         } catch (error) {
@@ -24,19 +22,19 @@ module.exports = {
     },
     async post(req, res){
         const user = req.body
-        
+
         try{
             const loggedUserId = req.session.userId
 
             let results = User.find(loggedUserId)
             const loggedUser = (await results).rows[0]
-    
+
             if(loggedUser.is_admin === false){
                 return res.render("admin/users/index", {
                     error: "Essa conta não é uma conta administradora"
                 })
             }
-            
+
             //uma senha para esse usuário
             const password = crypto.randomBytes(5).toString("hex")
 
@@ -79,7 +77,7 @@ module.exports = {
     async put(req, res){
         try{
             const keys = Object.keys(req.body)
-        
+
             for(key of keys) {
                 if (req.body[key] == ""){
                     return res.send('Please, fill all fields!')
@@ -95,12 +93,12 @@ module.exports = {
     },
     async delete(req, res){
         try {
-            await User.delete(req.body.id)
-            // console.log(req.body.id)
-            return res.redirect("/admin/users")
-            
+            await User.delete(req.params.id)
+            return res.render("admin/users/alert/delete-success")
+
         } catch (error) {
             console.error(error)
+            return res.render("admin/users/alert/delete-error")
         }
     }
 }
