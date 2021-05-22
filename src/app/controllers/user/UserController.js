@@ -55,7 +55,7 @@ module.exports = {
                 `
             })
 
-            if(req.body.admin = 'on'){
+            if(req.body.admin == 'on'){
                 req.body = {
                     ...req.body,
                     is_admin: true
@@ -91,6 +91,18 @@ module.exports = {
             for(key of keys) {
                 if (req.body[key] == ""){
                     return res.send('Please, fill all fields!')
+                }
+            }
+
+            if(req.body.admin == 'on'){
+                req.body = {
+                    ...req.body,
+                    is_admin: true
+                }
+            } else {
+                req.body = {
+                    ...req.body,
+                    is_admin: false
                 }
             }
 

@@ -63,13 +63,15 @@ module.exports = {
             const query = `
                 UPDATE users SET
                     name = ($1),
-                    email = ($2) 
-                WHERE id = $3
+                    email = ($2),
+                    is_admin = ($3)
+                WHERE id = $4
             ` 
 
             const values = [
                 data.name,
                 data.email,
+                data.is_admin,
                 data.id
             ]
 
