@@ -63,13 +63,15 @@ module.exports = {
             const query = `
                 UPDATE users SET
                     name = ($1),
-                    email = ($2) 
-                WHERE id = $3
+                    email = ($2),
+                    is_admin = ($3)
+                WHERE id = $4
             ` 
 
             const values = [
                 data.name,
                 data.email,
+                data.is_admin,
                 data.id
             ]
 
@@ -89,29 +91,6 @@ module.exports = {
             console.error(error)
         }
     },
-    // async delete(id){
-    //     //pegar todos os produtos 
-    //     let results = await db.query("SELECT * FROM products WHERE user_id = $1", [id])
-    //     const products = results.rows
-
-    //     //dos produtos, pegar todas as imagens
-    //     const allFilesPromise = products.map(product => Product.files(product.id))
-    //     let promiseResults = await Promise.all(allFilesPromise) 
-
-    //     //rodar a remoção do usuário
-    //     await db.query('DELETE FROM users WHERE id = $1', [id])
-        
-    //     //remover as imagens da pasta public
-    //     promiseResults.map(results => {
-    //         results.rows.map(file => {
-    //             try{
-    //                 fs.unlinkSync(file.path)
-    //             }catch(err){
-    //                 console.error(err)
-    //             }
-    //         })
-    //     })
-    // }
     find(id){
         try {
             return db.query(`

@@ -5,8 +5,11 @@
 {% endblock %}
 
 {% block content %}
-    <div class="admin_chefs">
+    <div class="header_page">
         <h1>Gerenciar chefs</h1>
+        {%if loggedUser === true%}
+            <a href="chefs/create" class="admin_button users">Novo</a>
+        {%endif%}
     </div>
 
     <div class="cards_chefs admin">

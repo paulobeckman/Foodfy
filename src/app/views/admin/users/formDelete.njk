@@ -1,0 +1,10 @@
+<script>
+    const formDelete = document.querySelector("#form-recipes-delete")
+    formDelete.addEventListener("submit", function(event){
+        const confirmation = confirm("Esta conta e todas as receitas criadas por ela irão ser apagadas, deseja continuar?")
+        if(!confirmation) {
+            event.preventDefault()
+        }
+        
+    })
+</script>

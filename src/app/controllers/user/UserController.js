@@ -1,4 +1,7 @@
 const User = require('../../models/User')
+const Recipe = require('../../models/Recipes')
+const File = require('../../models/File')
+const Recipe_File = require('../../models/Recipe_Files')
 const crypto = require('crypto')
 const mailer = require('../../../lib/mailer')
 
@@ -11,8 +14,6 @@ module.exports = {
             results = await User.find(req.session.userId)
             const loggedUser = results.rows[0].is_admin
             const loggedUserId = results.rows[0].id
-            
-
 
             return res.render("admin/users/index", {users, loggedUser, loggedUserId})
         } catch (error) {
@@ -24,19 +25,19 @@ module.exports = {
     },
     async post(req, res){
         const user = req.body
-        
+
         try{
             const loggedUserId = req.session.userId
 
             let results = User.find(loggedUserId)
             const loggedUser = (await results).rows[0]
-    
+
             if(loggedUser.is_admin === false){
                 return res.render("admin/users/index", {
                     error: "Essa conta não é uma conta administradora"
                 })
             }
-            
+
             //uma senha para esse usuário
             const password = crypto.randomBytes(5).toString("hex")
 
@@ -54,16 +55,23 @@ module.exports = {
                 `
             })
 
+            if(req.body.admin == 'on'){
+                req.body = {
+                    ...req.body,
+                    is_admin: true
+                }
+            }
+
             await User.create({...req.body, password})
 
-            //avisar o usuário que enviamos o email
-            return res.redirect("/admin/users")
+            const userName = req.body.name
 
-        }catch(err){
-            console.error(err)
-            res.render("admin/users/create", {
-                error: "Erro inesperado, tente novamente"
-            })
+            //avisar o usuário que enviamos o email
+            return res.render("admin/users/alert/success", {userName})
+
+        }catch(error){
+            console.error(error)
+            return res.render("admin/users/alert/success")
         }
     },
     async edit(req, res){
@@ -79,28 +87,77 @@ module.exports = {
     async put(req, res){
         try{
             const keys = Object.keys(req.body)
-        
+
             for(key of keys) {
                 if (req.body[key] == ""){
                     return res.send('Please, fill all fields!')
                 }
             }
 
+            if(req.body.admin == 'on'){
+                req.body = {
+                    ...req.body,
+                    is_admin: true
+                }
+            } else {
+                req.body = {
+                    ...req.body,
+                    is_admin: false
+                }
+            }
+
             await User.update(req.body)
 
-            return res.redirect(`/admin/users/${req.body.id}/edit`)
+            return res.render(`admin/users/edit`, {
+                user: req.body,
+                success: "Conta atualizada com sucesso!"
+            })
+            
         }catch(error){
             console.error(error)
         }
     },
-    async delete(req, res){
+    async delete(req, res){ 
         try {
-            await User.delete(req.body.id)
-            // console.log(req.body.id)
-            return res.redirect("/admin/users")
-            
+            //buscando por todas as receitas do usuário
+            let results = await Recipe.findByUser(req.body.id)
+            const recipes = results.rows
+
+            // se for encontrado receitas, deletar receitas e arquivos img
+            if(recipes){
+                const promisseRecipeFile = recipes.map(async recipe => {
+                    let results = await Recipe_File.find(recipe.id)
+                    const files = results.rows
+
+                    let fil = []
+
+                    files.map(file => fil.push(file))
+
+                    return fil
+                })
+
+                const resultsFiles = await Promise.all(promisseRecipeFile)
+
+                await recipes.map(recipe=>{
+                    Recipe_File.deleteByRecipe(recipe.id)
+                })
+
+                //deletando arquivos img de receitas
+                const removedFilesPromise = await resultsFiles.map(file => file.map(findFile => File.delete(findFile.id)))
+                await Promise.all(removedFilesPromise)
+
+                await recipes.map(recipe =>{
+                    Recipe.delete(recipe.id)  
+                })
+            }
+
+            await User.delete(req.params.id)
+
+            return res.render("admin/users/alert/delete-success")
+
         } catch (error) {
             console.error(error)
+            return res.render("admin/users/alert/delete-error")
         }
     }
 }

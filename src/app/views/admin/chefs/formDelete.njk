@@ -1,0 +1,10 @@
+<script>
+    const formDelete = document.querySelector("#form-recipes-delete")
+    formDelete.addEventListener("submit", function(event){
+        const confirmation = confirm("Este chef e todas as receitas relacionadas a ele será apagado, deseja continuar?")
+        if(!confirmation) {
+            event.preventDefault()
+        }
+        
+    })
+</script>

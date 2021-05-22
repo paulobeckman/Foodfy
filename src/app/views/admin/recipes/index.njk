@@ -6,7 +6,10 @@
 
 {% block content %}
     <div class="cards_recipes admin">
-        <h1>Gerenciar receitas</h1>
+        <div class="header_page">
+            <h1>Gerenciar receitas</h1>
+            <a href="recipes/create" class="admin_button users">Novo</a>
+        </div>
 
         <div class="cards">
             {%for recipe in recipes%}

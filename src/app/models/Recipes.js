@@ -21,8 +21,9 @@ module.exports = {
                     title,
                     ingredients,
                     preparations,
-                    information
-                ) VALUES ($1, $2, $3, $4, $5)
+                    information,
+                    user_id
+                ) VALUES ($1, $2, $3, $4, $5, $6)
                 RETURNING id
             `
 
@@ -31,7 +32,8 @@ module.exports = {
                 data.title,
                 data.ingredients,
                 data.preparations,
-                data.information
+                data.information,
+                data.user_id
             ]
 
             return db.query(query, values)
@@ -69,7 +71,7 @@ module.exports = {
     findByUser(id){
         try{
             return db.query(`
-                SELECT recipes.title, recipes.id
+                SELECT recipes.title, recipes.id, recipes.chef_id
                 FROM recipes 
                 WHERE recipes.user_id = $1
                 ORDER BY recipes.created_at DESC`, [id]

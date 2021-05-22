@@ -14,19 +14,28 @@
 
     <div class="cards_users">
         {%for user in users%}
-            <div class="card">
+            <div class="card" id="{{user.id}}">
                 <div class="infor">
                     <h2>{{user.name}}</h2>
                     <p>{{user.email}}</p>
                 </div>
 
                 <div class="buttons">
-                    {%if loggedUser == true%}
+                    {%if (loggedUser == true)%}
                         {%if loggedUserId === user.id%}
                             <a href="/admin/profile" class="admin_button_secondary">Editar</a>
                         {%else%}
                             <a href="/admin/users/{{user.id}}/edit" class="admin_button_secondary">Editar</a>
-                            <button type="submit" form="form-recipes-delete" class="admin_button_secondary delete">Remover</button>
+                            <div>
+                                <form id="form-delete" method="POST" action="/admin/users/{{user.id}}?_method=DELETE">
+                                    <input 
+                                        type="hidden"
+                                        name="id"
+                                        value={{user.id}}
+                                    >
+                                    <button type="submit" class="admin_button_secondary delete">Remover</button>
+                                </form>
+                            </div>
                         {%endif%}
 
                     {%else%}
@@ -35,17 +44,7 @@
                         {%endif%}
                     {%endif%}
                 </div>
-
-                <form id="form-recipes-delete" method="POST" action="/admin/users/{{user.id}}?_method=DELETE">
-                    <input 
-                        type="hidden"
-                        name="id"
-                        value={{user.id}}
-                    >
-                </form>
             </div>
         {%endfor%}
     </div>
-
-    
 {% endblock %}

@@ -43,7 +43,7 @@ async function cannotDeleteYourProfile (req, res, next){
     let results = await User.find(req.session.userId)
     const user = results.rows[0]
 
-    if(user){
+    if(user && user.is_admin == false){
         return res.redirect("/admin/users")
     }
 
@@ -66,11 +66,28 @@ async function authorizationToModifyRecipes (req, res, next){
     next()
 }
 
+async function authorizationToModifyRecipesBody (req, res, next){
+    let results = await Recipe.find(req.body.id)
+    const recipe = results.rows[0]
+  
+    results = await User.find(req.session.userId)
+    const is_admin = results.rows[0].is_admin
+
+    if(is_admin !== true){
+        if(recipe.user_id != req.session.userId){
+            return res.redirect("/admin/recipes")
+        }
+    }
+
+    next()
+}
+
 module.exports = {
     onlyUsers,
     isLoggedRedirectToUsers,
     isAdminUserRedirectToUsers,
     isAdminUserRedirectToChefs,
     cannotDeleteYourProfile,
-    authorizationToModifyRecipes
+    authorizationToModifyRecipes,
+    authorizationToModifyRecipesBody
 }

@@ -40,20 +40,8 @@ module.exports = {
         }
     },
     async post(req, res) {
-        try{
-            const keys = Object.keys(req.body)
-
-            for(key of keys){
-                if(req.body[key] == ""){
-                    return res.send('Please, fill all fields!')
-                }
-            }
-
-            if(req.files.length == 0){
-                return res.send('Please, send at least one image')
-            }
-            
-            let results = await Recipe.create(req.body)
+        try{            
+            let results = await Recipe.create({...req.body, user_id: req.session.userId})
             const recipeId = results.rows[0].id
 
             const filesPromise = req.files.map(file => File.create(file))
@@ -67,10 +55,13 @@ module.exports = {
 
             await Promise.all(filesPromiseResults)
 
-            return await res.redirect(`recipes/${recipeId}`)
+            const recipeTitle = req.body.title
+
+            return await res.render("admin/recipes/alert/success", {recipeTitle})
         
         } catch (error) {
             console.error(error)
+            return res.render('admin/recipes/alert/error')
         }
     },
     async show(req, res){
@@ -112,9 +103,14 @@ module.exports = {
             }))
 
             results = await Chef.all()
-            const chefs = results.rows
+            const chefs = results.rows 
 
-            return res.render("admin/recipes/edit", {recipe, files, chefs})
+
+            results = await User.find(req.session.userId)
+            const loggedUser = results.rows[0].is_admin
+            const loggedUserId = results.rows[0].id
+
+            return res.render("admin/recipes/edit", {recipe, files, chefs, loggedUser, loggedUserId})
 
         } catch (error) {
             console.error(error)
@@ -122,14 +118,6 @@ module.exports = {
     },
     async update(req, res){
         try {
-            const keys = Object.keys(req.body)
-
-            for(key of keys){
-                if(req.body[key] == "" && key != "removed_files"){
-                    return res.send('Please, fill all fields!')
-                }
-            }
-
             if(req.files.length != 0){
                 const filesPromise = req.files.map(file => File.create(file)) 
                 const fileResults = await Promise.all(filesPromise)
@@ -172,10 +160,11 @@ module.exports = {
 
             await Recipe.delete(req.body.id)  
             
-            return res.redirect("recipes")
+            return res.render("admin/recipes/alert/delete-success")
             
         } catch (error) {
             console.error(error)
+            return res.render('admin/chefs/alert/delete-error')
         }
     }
 }

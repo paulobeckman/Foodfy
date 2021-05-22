@@ -31,9 +31,12 @@
         >
 
         <div class="checkbox">
-            <input type="checkbox" id="admin" name="admin">
+            <input type="checkbox" id="admin" name="admin"
+                {% if user.is_admin == true %} checked {%endif%}
+            >        
             <label for="admin">Administrador</label>
         </div>
     </form>
 
+    {% include './formDelete.njk'%}
 {% endblock %}

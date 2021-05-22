@@ -1,0 +1,25 @@
+{% extends '../../layout.njk'%}
+
+{%block content%}
+    <div class="alert-message success">
+        <div class="success-lottie"></div>
+        <h1>Receita {{recipeTitle}}</h1>
+        <h1>Cadastrada com sucesso</h1>
+
+        <a class="admin_button_secondary" href="/admin/recipes/create">Cadastrar mais receitas</a>
+    </div>
+
+
+    <script src="/lottie.min.js"></script>
+    <script>
+        const  element = document.querySelector('.success-lottie')
+
+        lottie.loadAnimation({
+            container: element, // the dom element that will contain the animation
+            renderer: 'svg',
+            loop: false,
+            autoplay: true,
+            path: '/59945-success-confetti.json' // the path to the animation json
+        });
+    </script>
+{%endblock%}
