@@ -55,6 +55,13 @@ module.exports = {
                 `
             })
 
+            if(req.body.admin = 'on'){
+                req.body = {
+                    ...req.body,
+                    is_admin: true
+                }
+            }
+
             await User.create({...req.body, password})
 
             const userName = req.body.name
