@@ -1,3 +1,23 @@
+const currentPageAdmin = location.pathname
+const menuItemsAdmin = document.querySelectorAll("header.home.admin .links a")
+
+for (item of menuItemsAdmin) {
+    if (currentPageAdmin.includes(item.getAttribute("href"))){
+        item.classList.add("active")
+        console.log(item)
+    }
+}
+
+const currentPageHome = location.pathname
+const menuItemsHome = document.querySelectorAll("header.home .links a")
+
+for (item of menuItemsHome) {
+    if (currentPageHome.includes(item.getAttribute("href"))){
+        item.classList.add("active")
+        console.log(item)
+    }
+}
+
 const PhotosChefUpload = {
     input: "",
     preview: document.querySelector('#photos_preview'),
@@ -257,4 +277,3 @@ function addPreparetion(){
 document
     .querySelector(".add_preparations_mode")
     .addEventListener("click", addPreparetion)
-
