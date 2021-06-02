@@ -11,6 +11,7 @@ routes.get('/about', function(req, res){
     return res.render("site/about/index")
 })
 routes.get('/recipes', Recipes.index)
+routes.get('/recipes/:id', Recipes.show)
 routes.get('/chefs', Chefs.index)
 routes.get('/search', Search.index)
 

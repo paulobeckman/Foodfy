@@ -4,7 +4,6 @@ const menuItemsAdmin = document.querySelectorAll("header.home.admin .links a")
 for (item of menuItemsAdmin) {
     if (currentPageAdmin.includes(item.getAttribute("href"))){
         item.classList.add("active")
-        console.log(item)
     }
 }
 
@@ -14,8 +13,48 @@ const menuItemsHome = document.querySelectorAll("header.home .links a")
 for (item of menuItemsHome) {
     if (currentPageHome.includes(item.getAttribute("href"))){
         item.classList.add("active")
-        console.log(item)
     }
+}
+
+const showHides = document.querySelectorAll('.topic_button h4')
+console.log(showHides)
+for (let showHide of showHides){
+
+    // let selector = document.querySelector('.topic-content').classList.toggle('hide')
+
+    showHide.addEventListener("click", function(){        
+
+        if(showHide.getAttribute("id") ===  "1" && showHide.innerHTML === "MOSTRAR"){
+            document.querySelector('.topic_content_ingredients').classList.toggle('hide')
+
+            document.getElementById("1").innerHTML = "ESCONDER"
+
+        } else if (showHide.getAttribute("id") ===  "1"  && showHide.innerHTML === "ESCONDER"){
+            document.querySelector('.topic_content_ingredients').classList.toggle('hide')
+
+            document.getElementById("1").innerHTML = "MOSTRAR"
+
+        } else if(showHide.getAttribute("id") ===  "2" && showHide.innerHTML === "MOSTRAR"){
+            document.querySelector('.topic_content_preparation').classList.toggle('hide')
+
+            document.getElementById("2").innerHTML = "ESCONDER"
+            
+        } else if (showHide.getAttribute("id") ===  "2" && showHide.innerHTML === "ESCONDER"){
+            document.querySelector('.topic_content_preparation').classList.toggle('hide')
+
+            document.getElementById("2").innerHTML = "MOSTRAR"
+
+        } else if(showHide.getAttribute("id") ===  "3" && showHide.innerHTML === "MOSTRAR"){
+            document.querySelector('.topic_content_information').classList.toggle('hide')
+
+            document.getElementById("3").innerHTML = "ESCONDER"
+            
+        } else if (showHide.getAttribute("id") ===  "3" && showHide.innerHTML === "ESCONDER"){
+            document.querySelector('.topic_content_information').classList.toggle('hide')
+
+            document.getElementById("3").innerHTML = "MOSTRAR"
+        }
+    })
 }
 
 const PhotosChefUpload = {

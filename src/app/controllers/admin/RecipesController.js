@@ -1,3 +1,6 @@
+
+const { unlinkSync } = require('fs')
+
 const User = require('../../models/User')
 const Chef = require('../../models/Chef')
 const Recipe = require('../../models/Recipes')
@@ -42,15 +45,17 @@ module.exports = {
     async post(req, res) {
         try{            
             let results = await Recipe.create({...req.body, user_id: req.session.userId})
-            const recipeId = results.rows[0].id
+            const recipe_id = results.rows[0].id
 
-            const filesPromise = req.files.map(file => File.create(file))
+            const filesPromise = req.files.map(file => 
+                File.create({name: file.filename, path: file.path})
+            )
             const fileResults = await Promise.all(filesPromise)
             
             const filesPromiseResults = fileResults.map(file => {
-                const fileId = file.rows[0].id
+                const file_id = file
 
-                Recipe_File.create({recipe_id: recipeId, file_id: fileId})
+                Recipe_File.create({recipe_id, file_id})
             })
 
             await Promise.all(filesPromiseResults)
@@ -119,10 +124,10 @@ module.exports = {
     async update(req, res){
         try {
             if(req.files.length != 0){
-                const filesPromise = req.files.map(file => File.create(file)) 
+                const filesPromise = req.files.map(file => File.create({name: file.filename, path: file.path})) 
                 const fileResults = await Promise.all(filesPromise)
                 const filesPromiseResults = fileResults.map(file => {
-                    const  file_id = file.rows[0].id
+                    const  file_id = file
         
                     Recipe_File.create({recipe_id: req.body.id, file_id})
                 })
@@ -139,6 +144,17 @@ module.exports = {
 
                 removedFiles.map(id => Recipe_File.deleteByFile(id))             
                 const removedFilesPromise = await removedFiles.map(id => File.delete(id))
+
+                const filesResults = removedFiles.map(file => File.find(file))
+                const files = await Promise.all(filesResults) 
+
+                files.map(file => {
+                    try{
+                        unlinkSync(file.path)
+                    }catch(err){
+                        console.error(err)
+                    }
+                })
                 
                 await Promise.all(removedFilesPromise)
             }
@@ -151,12 +167,20 @@ module.exports = {
     },
     async delete(req, res){
         try{
-            const resultsFileId = await Recipe_File.find(req.body.id)
+            const resultsFiles = await Recipe_File.find(req.body.id)
 
             await Recipe_File.deleteByRecipe(req.body.id)
             
-            const removedFilesPromise = await resultsFileId.rows.map(file => File.delete(file.id))
+            const removedFilesPromise = await resultsFiles.rows.map(file => File.delete(file.id))
             await Promise.all(removedFilesPromise)
+
+            resultsFiles.rows.map(file => {
+                try{
+                    unlinkSync(file.path)
+                }catch(err){
+                    console.error(err)
+                }
+            })
 
             await Recipe.delete(req.body.id)  
             

@@ -17,7 +17,7 @@ CREATE TABLE "chefs" (
   "id" SERIAL PRIMARY KEY,
   "name" text,
   "file_id" int,
-  "created_at" timestamp
+  "created_at" timestamp DEFAULT (now())
 );
 
 CREATE TABLE "files" (

@@ -27,13 +27,16 @@ module.exports = {
     },
     async post(req, res){
         try {
-            let results = await File.create(req.files[0])
-            const file_id = results.rows[0].id
+            let { name } = req.body
             
-            results = await Chef.create({...req.body, file_id})
-            const chefId = results.rows[0].id
+            const file_id = await File.create({name: req.files[0].filename, path: req.files[0].path})
 
-            const chefName = req.body.name
+            await Chef.create({
+                name,
+                file_id
+            })     
+
+            const chefName = name
 
             return res.render(`admin/chefs/alert/success`, {chefName})
 
@@ -99,11 +102,12 @@ module.exports = {
     },
     async update(req, res){
         try {
-            if(req.files.length != 0){
-                let results = await File.create(req.files[0])
-                const file_id = results.rows[0].id
+            let { name, id } = req.body
 
-                await Chef.updateFileId(file_id)
+            if(req.files.length != 0){
+                const file_id = await File.create({name: req.files[0].filename, path: req.files[0].path})
+                
+                await Chef.update (id,{file_id})
             }
                     
             if (req.body.removed_files){
@@ -116,7 +120,7 @@ module.exports = {
                 await Promise.all(removedFilesPromise)
             }
 
-            await Chef.updateName(req.body)
+            await Chef.update(id, {name})
 
             return res.redirect(`chefs/${req.body.id}`)
 
