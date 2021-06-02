@@ -1,21 +1,10 @@
 {% extends '../layout.njk'%}
 
 {% block head %}
-    <title>Foodfy | Receita | Administrador</title>
+    <title>Foodfy | Receita</title>
 {% endblock %}
 
 {%block content%}
-    <div class="header_page">
-        <h1>Receita: {{recipe.title}}</h1>
-            {%if recipe.user_id === loggedUser.id%}
-                <a href="{{recipe.id}}/edit" class="admin_button">Editar Receita</a>
-            {%else%}
-                {%if loggedUser.is_admin === true%}
-                    <a href="{{recipe.id}}/edit" class="admin_button">Editar Receita</a>
-                {%endif%}
-            {%endif%}
-    </div>
-
     <div class="page_information recipe">
         <div class="gallery">
             <div class="highlight">
@@ -26,7 +15,7 @@
                         src="{{recipe.files[0].src}}" 
                         alt="{{recipe.files[0].name}}"
                     >
-                {% endif %}
+                {% endif %} 
             </div>
             <div class="gallery_preview">
                 {% for image in recipe.files %}
@@ -47,22 +36,32 @@
     </div>
 
     <div class="info recipe">
-        <h3>Ingredientes</h3>
-        <ul>
+        <section class="topic_button">
+            <h3>Ingredientes</h3>
+            <h4 class="ingredients" onclick="ShowHideIngredients.change()">Esconder</h4>
+        </section>
+        <ul id="ingredients">
             {%for ingredient in recipe.ingredients%}
-                <li>- {{ingredient}}</li>
+                <li>{{ingredient}}</li>
             {%endfor%}
         </ul>
 
-        <h3>Modo de preparo</h3>
-        <ul>
+        <section class="topic_button">
+            <h3>Modo de preparo</h3>
+            <h4 class="preparation" onclick="ShowHidePreparation.change()">Esconder</h4>
+         </section>
+        <ul id="preparation">
             {%for preparation in recipe.preparations%}
-                <li>- {{preparation}}</li>
+                <li>{{preparation}}</li>
             {%endfor%}
         </ul>
 
-        <h3>Informações adicionais</h3>
-        <p>{{recipe.information}}</p>
+        <section class="topic_button">
+            <h3>Informações adicionais</h3>
+            <h4 class="information" onclick="ShowHideInformation.change()">Esconder</h4>
+        </section>
+        <div id="information">
+            <p >{{recipe.information}}</p>
+        </div>
     </div>
-
 {% endblock %}

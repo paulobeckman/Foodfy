@@ -1,7 +1,10 @@
 const db = require('../../config/db')
-const { date } = require('../../lib/utils')
+const Base = require('./Base')
+
+Base.init({ table: 'chefs' })
 
 module.exports = {
+    ...Base,
     all() {
         try {
             return db.query(`SELECT chefs.*, count(recipes) AS total_recipes,files.path
@@ -11,33 +14,9 @@ module.exports = {
                 GROUP BY chefs.id, files.path
                 ORDER BY name ASC`
             )
-
         } catch (error) {
             console.error(error)
         }
-    },
-    create(data) {
-        try{
-            const query = `
-                INSERT INTO chefs( 
-                    name,
-                    file_id,
-                    created_at
-                ) VALUES ($1, $2, $3)
-                RETURNING id
-            `
-            const values = [
-                data.name,
-                data.file_id,
-                date(Date.now()).iso
-            ]
-
-            return db.query(query, values)
-
-        }catch(error){
-            console.error(error)
-        }
-
     },
     find(id) {
         try {
@@ -49,45 +28,6 @@ module.exports = {
                 WHERE chefs.id = $1
                 GROUP BY chefs.id, files.path`, [id]
             )  
-        } catch (error) {
-            console.error(error)
-        }
-    },
-    updateFileId(data){
-        try {
-            const query = `
-                UPDATE chefs SET
-                    file_id = ($1) 
-                WHERE id = $2
-            ` 
-
-            const values = [
-                data.file_id,
-                data.id
-            ]
-
-            return db.query(query, values)
-            
-        } catch (error) {
-            console.error(error)
-        }
-
-    },
-    updateName(data){
-        try {
-            const query = `
-                UPDATE chefs SET
-                    name = ($1)
-                WHERE id = $2
-            ` 
-
-            const values = [
-                data.name,
-                data.id
-            ]
-
-            return db.query(query, values)
-
         } catch (error) {
             console.error(error)
         }
@@ -105,16 +45,5 @@ module.exports = {
         } catch (error) {
             console.error(error)
         }
-    },
-    delete(id) {
-        try{
-            return db.query(`
-                DELETE FROM chefs
-                WHERE id = $1`, [id]
-            )
-        }catch(error){
-            console.error(error)
-        }
-
     }
 }

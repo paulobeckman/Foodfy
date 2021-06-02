@@ -72,6 +72,10 @@ header.home{
     outline: none;
 }
 
+.filter_recipes button{
+    cursor: pointer;
+}
+
 .filter_recipes input{
     width: 246px;
 }
@@ -153,6 +157,32 @@ footer{
     padding: 23px 0;
 
     text-align: center;
+}
+
+/*== RECIPE ==*/
+.topic_button{
+    display: flex;
+    gap: 10px;
+}
+
+.topic_button h4{
+    margin-top: 8px;
+    font-size: 12px;
+    color: #999999;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+#ingredients{
+    display: block;
+}
+
+#preparation{
+    display: block;
+}
+
+#information{
+    display: block;
 }
 
 

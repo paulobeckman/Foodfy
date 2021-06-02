@@ -1,3 +1,6 @@
+
+const { hash } = require('bcryptjs')
+
 const User = require('../../models/User')
 const Recipe = require('../../models/Recipes')
 const File = require('../../models/File')
@@ -24,7 +27,7 @@ module.exports = {
         return res.render("admin/users/create")
     },
     async post(req, res){
-        const user = req.body
+        const {name, email} = req.body
 
         try{
             const loggedUserId = req.session.userId
@@ -41,9 +44,11 @@ module.exports = {
             //uma senha para esse usuário
             const password = crypto.randomBytes(5).toString("hex")
 
+            const passwordBD = await hash(password, 8)
+
             // enviar um email com um link de recuperação de senha
             await mailer.sendMail({
-                to: user.email,
+                to: email,
                 from: 'no-reply@foodfy.com.br',
                 subject: 'Sua senha de login',
                 html: `<h2>Aqui está a sua senha</h2>
@@ -55,16 +60,15 @@ module.exports = {
                 `
             })
 
+            let is_admin = false
+
             if(req.body.admin == 'on'){
-                req.body = {
-                    ...req.body,
-                    is_admin: true
-                }
+                is_admin = true
             }
 
-            await User.create({...req.body, password})
+            await User.create({name, email, is_admin, password: passwordBD})
 
-            const userName = req.body.name
+            const userName = name
 
             //avisar o usuário que enviamos o email
             return res.render("admin/users/alert/success", {userName})
@@ -87,6 +91,7 @@ module.exports = {
     async put(req, res){
         try{
             const keys = Object.keys(req.body)
+            let {name, email, id} = req.body
 
             for(key of keys) {
                 if (req.body[key] == ""){
@@ -94,19 +99,16 @@ module.exports = {
                 }
             }
 
+            let is_admin
+
             if(req.body.admin == 'on'){
-                req.body = {
-                    ...req.body,
-                    is_admin: true
-                }
+                is_admin = true
+
             } else {
-                req.body = {
-                    ...req.body,
-                    is_admin: false
-                }
+                is_admin = false
             }
 
-            await User.update(req.body)
+            await User.update(id, {name, email, is_admin })
 
             return res.render(`admin/users/edit`, {
                 user: req.body,

@@ -17,10 +17,34 @@ module.exports = {
                 }
             })
 
+            
             const recipeFile = await Promise.all(promisseRecipeFile)
             
             return res.render("site/recipes/index", {recipes: recipeFile})
 
+        } catch (error) {
+            console.error(error)
+        }
+    },
+    async show (req, res){
+        try{
+            let results = await Recipe.find(req.params.id)
+            const recipe = results.rows[0]
+
+            results = await Recipe_File.find(req.params.id)
+            let files = await results.rows
+            files = files.map(file => ({
+                ...file,
+                src: `${req.protocol}://${req.headers.host}${file.path.replace("public", "")}`
+            }))
+
+            const RecipeFiles = {
+                ...recipe,
+                files
+            }
+
+            return res.render("site/recipes/show", {recipe: RecipeFiles})
+            
         } catch (error) {
             console.error(error)
         }

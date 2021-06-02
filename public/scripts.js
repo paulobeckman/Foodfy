@@ -1,10 +1,17 @@
+const cards = document.querySelectorAll('.cards_recipes .card')
+for (let card of cards) {
+    card.addEventListener("click", function(){
+        const Id = card.getAttribute("id")
+        window.location.href = `recipes/${Id}`
+    })
+}
+
 const currentPageAdmin = location.pathname
 const menuItemsAdmin = document.querySelectorAll("header.home.admin .links a")
 
 for (item of menuItemsAdmin) {
     if (currentPageAdmin.includes(item.getAttribute("href"))){
         item.classList.add("active")
-        console.log(item)
     }
 }
 
@@ -14,7 +21,48 @@ const menuItemsHome = document.querySelectorAll("header.home .links a")
 for (item of menuItemsHome) {
     if (currentPageHome.includes(item.getAttribute("href"))){
         item.classList.add("active")
-        console.log(item)
+    }
+}
+
+const ShowHideIngredients = {
+    target: document.querySelector('.info.recipe h4.ingredients'),
+    contents: document.querySelector('#ingredients'),
+    change() {
+        if(ShowHideIngredients.target.innerHTML === "Mostrar"){
+            ShowHideIngredients.contents.style.display = "block"
+            ShowHideIngredients.target.innerHTML = "Esconder"
+        } else {
+            ShowHideIngredients.contents.style.display = "none"
+            ShowHideIngredients.target.innerHTML = "Mostrar"
+        }
+    }
+}
+
+const ShowHidePreparation = {
+    target: document.querySelector('.info.recipe h4.preparation'),
+    contents: document.querySelector('#preparation'),
+    change() {
+        if(ShowHidePreparation.target.innerHTML === "Mostrar"){
+            ShowHidePreparation.contents.style.display = "block"
+            ShowHidePreparation.target.innerHTML = "Esconder"
+        } else {
+            ShowHidePreparation.contents.style.display = "none"
+            ShowHidePreparation.target.innerHTML = "Mostrar"
+        }
+    }
+}
+
+const ShowHideInformation = {
+    target: document.querySelector('.info.recipe h4.information'),
+    contents: document.querySelector('#information'),
+    change() {
+        if(ShowHideInformation.target.innerHTML === "Mostrar"){
+            ShowHideInformation.contents.style.display = "block"
+            ShowHideInformation.target.innerHTML = "Esconder"
+        } else {
+            ShowHideInformation.contents.style.display = "none"
+            ShowHideInformation.target.innerHTML = "Mostrar"
+        }
     }
 }
 
@@ -238,7 +286,6 @@ const ImageGallery = {
         target.classList.add('active')
 
         ImageGallery.highlight.src = target.src
-        Lightbox.image.src = target.src
     }
 }
 

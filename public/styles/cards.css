@@ -19,6 +19,10 @@
     gap: 20px;
 }
 
+.cards_recipes .card{
+    cursor: pointer;
+}
+
 .card .card_img{
     height: 140px;
     width: 300px;
