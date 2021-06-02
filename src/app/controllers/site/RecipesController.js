@@ -17,6 +17,7 @@ module.exports = {
                 }
             })
 
+            
             const recipeFile = await Promise.all(promisseRecipeFile)
             
             return res.render("site/recipes/index", {recipes: recipeFile})

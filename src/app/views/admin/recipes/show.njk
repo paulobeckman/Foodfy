@@ -25,20 +25,8 @@
                     <img 
                         src="{{recipe.files[0].src}}" 
                         alt="{{recipe.files[0].name}}"
-                        onclick="Lightbox.open()"
                     >
                 {% endif %}
-
-                <div class="lightbox_target">
-                    <img src="{{recipe.files[0].src}}" alt="{{recipe.files[0].name}}">
-                    <a 
-                        href="#" 
-                        class="lightbox_close"
-                        onclick="Lightbox.close()"
-                    >
-                        <i class="material-icons">close</i>
-                    </a>
-                </div>
             </div>
             <div class="gallery_preview">
                 {% for image in recipe.files %}

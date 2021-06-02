@@ -72,6 +72,10 @@ header.home{
     outline: none;
 }
 
+.filter_recipes button{
+    cursor: pointer;
+}
+
 .filter_recipes input{
     width: 246px;
 }
@@ -166,8 +170,20 @@ footer{
     font-size: 12px;
     color: #999999;
     cursor: pointer;
+    text-transform: uppercase;
 }
 
+#ingredients{
+    display: block;
+}
+
+#preparation{
+    display: block;
+}
+
+#information{
+    display: block;
+}
 
 
 

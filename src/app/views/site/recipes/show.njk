@@ -14,20 +14,8 @@
                     <img 
                         src="{{recipe.files[0].src}}" 
                         alt="{{recipe.files[0].name}}"
-                        onclick="Lightbox.open()"
                     >
-                {% endif %}
-
-                <div class="lightbox_target">
-                    <img src="{{recipe.files[0].src}}" alt="{{recipe.files[0].name}}">
-                    <a 
-                        href="#" 
-                        class="lightbox_close"
-                        onclick="Lightbox.close()"
-                    >
-                        <i class="material-icons">close</i>
-                    </a>
-                </div>
+                {% endif %} 
             </div>
             <div class="gallery_preview">
                 {% for image in recipe.files %}
@@ -48,37 +36,32 @@
     </div>
 
     <div class="info recipe">
-        <section class="topic_button" id="information">
+        <section class="topic_button">
             <h3>Ingredientes</h3>
-            <h4 id = "1">ESCONDER</h4>
+            <h4 class="ingredients" onclick="ShowHideIngredients.change()">Esconder</h4>
         </section>
-        <div class="topic_content_information">
-            <ul>
-                {%for ingredient in recipe.ingredients%}
-                    <li>{{ingredient}}</li>
-                {%endfor%}
-            </ul>
-        </div>
+        <ul id="ingredients">
+            {%for ingredient in recipe.ingredients%}
+                <li>{{ingredient}}</li>
+            {%endfor%}
+        </ul>
 
-        <section class="topic_button" id="information">
+        <section class="topic_button">
             <h3>Modo de preparo</h3>
-            <h4 id = "2">MOSTRAR</h4>
+            <h4 class="preparation" onclick="ShowHidePreparation.change()">Esconder</h4>
          </section>
-        <div class="topic_content_information hide">
-            <ul>
-                {%for preparation in recipe.preparations%}
-                    <li>{{preparation}}</li>
-                {%endfor%}
-            </ul>
-        </div>
+        <ul id="preparation">
+            {%for preparation in recipe.preparations%}
+                <li>{{preparation}}</li>
+            {%endfor%}
+        </ul>
 
-        <section class="topic_button" id="information">
+        <section class="topic_button">
             <h3>Informações adicionais</h3>
-            <h4 id = "3">MOSTRAR</h4>
+            <h4 class="information" onclick="ShowHideInformation.change()">Esconder</h4>
         </section>
-        <div class="topic_content_information hide">
-            <p>{{recipe.information}}</p>
+        <div id="information">
+            <p >{{recipe.information}}</p>
         </div>
     </div>
-
 {% endblock %}
