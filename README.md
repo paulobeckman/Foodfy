@@ -21,7 +21,7 @@ $ npm install
 # O servidor inciará na porta:3000 - acesse http://localhost:3000
 ```
 
-### Configurando banco de dados 
+### - Configurando banco de dados 
 
 O script SQL para criar o banco de dados está no arquivo database.sql
 
@@ -36,7 +36,17 @@ Para fazer a configuração da aplicação com o banco de dados será necessári
 ```
 
 
-### Configurando conexão com o mailtrap usando o mailer
+### - Configurando conexão com o mailtrap usando o mailer
 Acesse a pasta: src > lib > mailer.js
 
 e faça a alteração dos dados para seus dados encontrados no mailtrap ao criar um novo projeto na aba SMTP Setting em Integrations mude para nodemailer.
+
+
+### - Criando o usuário administrador
+Na pasta foodfy rode o comando:
+
+```
+node seed.js
+```
+
+esse comando é responsável por criar o usuário administrador do sistema.

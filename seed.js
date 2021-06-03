@@ -1,5 +1,3 @@
-const { hash } = require('bcryptjs')
-
 const User = require('./src/app/models/User')
 
 async function createUsers() {
